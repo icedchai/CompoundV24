@@ -80,13 +80,12 @@
                 PlayersToRaycasts[player] = hit;
                 if (Player.TryGet(hit.collider, out Player victim))
                 {
-                    if (victim is null || victim == player)
+                    if (victim is null || victim == player || victim.IsGodModeEnabled)
                     {
                         yield return Timing.WaitForOneFrame;
                     }
 
                     player.ShowHitMarker();
-                    victim.PlaceBlood(player.CameraTransform.forward);
                     if (victim.Health <= 6)
                     {
                         victim.Kill("Deep, concentrated burns on the body suggest death by superpowered lasers.");

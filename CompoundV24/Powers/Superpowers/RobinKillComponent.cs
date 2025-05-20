@@ -39,13 +39,12 @@
         private void OnTriggerEnter(Collider other)
         {
             Player victim = Player.Get(other);
-            if (victim is null || victim == Player || !SuperspeedInstance.PlayerHasSpeedEnabled(Player) || Player.Velocity == Vector3.zero)
+            if (victim is null || victim == Player || victim.IsGodModeEnabled || !SuperspeedInstance.PlayerHasSpeedEnabled(Player) || Player.Velocity == Vector3.zero)
             {
                 return;
             }
 
             Player.ShowHitMarker();
-            victim.PlaceBlood(Vector3.down);
             Timing.CallDelayed(0.1f, () => victim.Hurt(150, Exiled.API.Enums.DamageType.Crushed));
         }
     }
