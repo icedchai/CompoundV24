@@ -38,7 +38,7 @@
         public Dictionary<string, List<string>> NameToPathForSounds { get; set; } = new Dictionary<string, List<string>>
         {
             { "burn", new List<string> { @"full/path/to/burn.ogg", @"full/path/to/burn2.ogg" } },
-            { "shell", new List<string> { @"full/path/to/shell1.ogg", @"full/path/to/shell2.ogg" } },
+            { "hallway", new List<string> { @"full/path/to/hallway.ogg" } },
         };
     }
 }
