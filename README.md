@@ -1,4 +1,4 @@
-# Compound V24 (Temp V) plugin!
+# Compound V24 (Temp V) plugin! DM `icedchqi` on Discord for any questions!
 Adds 1 custom item: Compound V24!
 
 On usage: applies random "superpower" to player. After two powers are applied, a sound effect (if specified "hallway") plays to all players globally.
