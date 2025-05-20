@@ -1,8 +1,9 @@
 # Compound V24 (Temp V) plugin!
 Adds 1 custom item: Compound V24!
 
-On usage: applies random "superpower" to player.
+On usage: applies random "superpower" to player. After two powers are applied, a sound effect (if specified "hallway") plays to all players globally.
 
+**Requires [AUDIOPLAYERAPI](https://github.com/Killers0992/AudioPlayerApi) to function**
 
 ## Superpower API
 
