@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
     using Exiled.API.Extensions;
@@ -24,7 +25,6 @@
         {
             BoxCollider trigger = gameObject.GetComponent<BoxCollider>();
             trigger.isTrigger = true;
-            Log.Debug($"initialized robinkillcomponent {trigger is null} && {trigger.isTrigger}");
         }
 
         private void OnDestroyed()
@@ -38,9 +38,8 @@
         private void OnTriggerEnter(Collider other)
         {
             Player victim = Player.Get(other);
-            if (victim is null || victim == Player || victim.IsGodModeEnabled || !SuperspeedInstance.PlayerHasPowerEnabled(Player) || Player.Velocity == Vector3.zero)
+            if (victim is null || victim == Player || victim.IsGodModeEnabled || !SuperspeedInstance.PlayerHasPowerEnabled(Player) || Player.Velocity.magnitude < 10)
             {
-                // Log.Debug($"Failed checks velocity: {Player.Velocity == Vector3.zero} player speed: {!SuperspeedInstance.PlayerHasSpeedEnabled(Player)}");
                 return;
             }
 
@@ -48,17 +47,17 @@
             SoundHelper.PlaySound(victim.Position, "gore");
             Timing.CallDelayed(0.01f, () =>
             {
-                var h = new CustomReasonDamageHandler("Liquification suggests that subject was struck by high speed object.", 150);
+                StandardDamageHandler h;
 
-                // typeof(StandardDamageHandler).GetField("StartVelocity").SetValue(h, Player.Velocity * 10);
+                h = new JailbirdDamageHandler(Player.ReferenceHub, 150, Player.Velocity);
+                /*
+                h = new CustomReasonDamageHandler("Liquification suggests that subject was struck by high speed object.", 150);
+                typeof(StandardDamageHandler).GetField("StartVelocity", BindingFlags.NonPublic | BindingFlags.Instance)
+                    .SetValue(h, Player.Velocity * 20);*/
+                victim.Hurt(h);
 
-                // h.StartVelocity = Player.Transform.forward * 50;
-                victim.ReferenceHub.playerStats.DealDamage(h);
+                // victim.ReferenceHub.playerStats.DealDamage(h);
             });
-          /*Timing.CallDelayed(0.01f, () =>
-            {
-                victim.Hurt(150);
-            });*/
         }
     }
 }
