@@ -2,7 +2,6 @@
 {
     using Exiled.API.Enums;
     using Exiled.API.Features;
-    using Exiled.Events.Commands.Hub;
     using Exiled.Events.EventArgs.Player;
     using System;
     using System.Collections.Generic;

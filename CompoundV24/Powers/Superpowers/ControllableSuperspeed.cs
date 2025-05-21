@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using Exiled.API.Enums;
     using Exiled.API.Features;
+    using Exiled.API.Features.Pickups;
     using Exiled.Events.EventArgs.Player;
     using MEC;
     using UnityEngine;
@@ -16,15 +17,10 @@
     /// <summary>
     /// Controllable superspeed.
     /// </summary>
-    public class ControllableSuperspeed : Superpower
+    public class ControllableSuperspeed : ToggleablePower
     {
         /// <inheritdoc/>
         public override string Name => "superspeed_controlled";
-
-        /// <summary>
-        /// Gets or sets the lookup table between <see cref="Player"/>'s and a value indicating whether they have the power enabled.
-        /// </summary>
-        protected Dictionary<Player, bool> PlayerEnabledSpeed { get; set; } = new Dictionary<Player, bool>();
 
         /// <summary>
         /// Gets or sets the lookup table between <see cref="Player"/>'s and the intensity of their <see cref="EffectType.MovementBoost"/> without the power enabled.
@@ -36,40 +32,9 @@
         /// </summary>
         public byte MovementSpeedIntensity { get; set; } = 255;
 
-        /// <summary>
-        /// Checks whether the player has the power enabled.
-        /// </summary>
-        /// <param name="player">The player to check.</param>
-        /// <returns>A value indicating whether <paramref name="player"/> has the power enabled.</returns>
-        public bool PlayerHasSpeedEnabled(Player player)
+        protected override void DisposeVariablesOnRestart()
         {
-            return PlayerEnabledSpeed.ContainsKey(player) && PlayerEnabledSpeed[player];
-        }
-
-        /// <inheritdoc/>
-        public override void OnUsedAbility(Player player)
-        {
-            base.OnUsedAbility(player);
-            ToggleSpeed(player);
-        }
-
-        /// <inheritdoc/>
-        protected override void SubscribeEvents()
-        {
-            base.SubscribeEvents();
-            Exiled.Events.Handlers.Server.RestartingRound += ResetVars;
-        }
-
-        /// <inheritdoc/>
-        protected override void UnsubscribeEvents()
-        {
-            base.UnsubscribeEvents();
-            Exiled.Events.Handlers.Server.RestartingRound -= ResetVars;
-        }
-
-        protected void ResetVars()
-        {
-            PlayerEnabledSpeed = new ();
+            base.DisposeVariablesOnRestart();
             SavedSpeeds = new ();
         }
 
@@ -77,7 +42,6 @@
         protected override void OnChangingRole(ChangingRoleEventArgs e)
         {
             base.OnChangingRole(e);
-            PlayerEnabledSpeed.Remove(e.Player);
             SavedSpeeds.Remove(e.Player);
         }
 
@@ -98,53 +62,34 @@
         protected override void RemoveProperties(Player player)
         {
             base.RemoveProperties(player);
+
             RobinKillComponent robinkill = player.GameObject.GetComponentInChildren<RobinKillComponent>();
             GameObject.Destroy(robinkill.gameObject);
         }
 
-        /// <summary>
-        /// Toggles the speed for <paramref name="player"/>.
-        /// </summary>
-        /// <param name="player">The player for whom to toggle the speed for.</param>
-        protected void ToggleSpeed(Player player)
+        /// <inheritdoc/>
+        protected override void EnablePower(Player player)
         {
-            if (!PlayerEnabledSpeed.TryGetValue(player, out var status))
+            base.EnablePower(player);
+            if (!SavedSpeeds.TryGetValue(player, out byte _))
             {
                 SavedSpeeds.Add(player, player.GetEffect(EffectType.MovementBoost)?.Intensity ?? 0);
-                PlayerEnabledSpeed.Add(player, false);
-            }
-
-            if (status)
-            {
-                DisableSpeed(player);
             }
             else
             {
-                EnableSpeed(player);
+                SavedSpeeds[player] = player.GetEffect(EffectType.MovementBoost)?.Intensity ?? 0;
             }
-        }
 
-        /// <summary>
-        /// Enables the speed on <paramref name="player"/>.
-        /// </summary>
-        /// <param name="player">The player to enable the power on.</param>
-        protected void EnableSpeed(Player player)
-        {
-            PlayerEnabledSpeed[player] = true;
-            SavedSpeeds[player] = player.GetEffect(EffectType.MovementBoost)?.Intensity ?? 0;
             player.EnableEffect(EffectType.Invigorated);
             player.GetEffect(EffectType.MovementBoost).Intensity = MovementSpeedIntensity;
         }
 
-        /// <summary>
-        /// Disables the speed on <paramref name="player"/>.
-        /// </summary>
-        /// <param name="player">The player to disable the power on.</param>
-        protected void DisableSpeed(Player player)
+        /// <inheritdoc/>
+        protected override void DisablePower(Player player)
         {
+            base.DisablePower(player);
             player.GetEffect(EffectType.MovementBoost).Intensity = SavedSpeeds[player];
             player.DisableEffect(EffectType.Invigorated);
-            PlayerEnabledSpeed[player] = false;
         }
     }
 }

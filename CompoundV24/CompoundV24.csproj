@@ -35,44 +35,45 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\..\..\dependancies\EXILEDREF\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-Publicized">
+    <Reference Include="Assembly-CSharp-Publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\dependancies\EXILEDREF\Assembly-CSharp-Publicized.dll</HintPath>
     </Reference>
     <Reference Include="AudioPlayerApi">
       <HintPath>..\..\..\dependancies\plugins\AudioPlayerApi.dll</HintPath>
     </Reference>
     <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\CommandSystem.Core.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\CommandSystem.Core.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.API, Version=9.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\Exiled.API.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\Exiled.API.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.CreditTags, Version=9.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\Exiled.CreditTags.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\Exiled.CreditTags.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.CustomItems, Version=9.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\Exiled.CustomItems.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\Exiled.CustomItems.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.CustomRoles, Version=9.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\Exiled.CustomRoles.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\Exiled.CustomRoles.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.Events, Version=9.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\Exiled.Events.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\Exiled.Events.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.Loader, Version=9.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\Exiled.Loader.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\Exiled.Loader.dll</HintPath>
     </Reference>
     <Reference Include="Exiled.Permissions, Version=9.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\Exiled.Permissions.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\Exiled.Permissions.dll</HintPath>
     </Reference>
-    <Reference Include="LabApi, Version=0.6.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\LabApi.dll</HintPath>
+    <Reference Include="LabApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\LabApi.dll</HintPath>
     </Reference>
     <Reference Include="Mirror">
       <HintPath>..\..\..\dependancies\EXILEDREF\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="NorthwoodLib, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\NorthwoodLib.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\NorthwoodLib.dll</HintPath>
     </Reference>
     <Reference Include="Pooling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
@@ -93,7 +94,7 @@
       <HintPath>..\..\..\dependancies\EXILEDREF\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExMod.Exiled.9.6.0-beta8\lib\net48\YamlDotNet.dll</HintPath>
+      <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,7 @@
     <Compile Include="EventHandlers\BasicEventHandlers.cs" />
     <Compile Include="Items\CompoundV.cs" />
     <Compile Include="Plugin.cs" />
+    <Compile Include="Powers\Superpowers\ToggleablePower.cs" />
     <Compile Include="Powers\Superpowers\ControllableSuperspeed.cs" />
     <Compile Include="Powers\PowerManager.cs" />
     <Compile Include="Powers\Superpower.cs" />
@@ -115,6 +117,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Analyzer Include="..\..\..\dependancies\EXILEDREF\Assembly-CSharp-firstpass.dll" />
+    <Analyzer Include="..\..\..\dependancies\EXILEDREF\Assembly-CSharp-Publicized.dll" />
+    <Analyzer Include="..\..\..\dependancies\EXILEDREF\Mirror.dll" />
+    <Analyzer Include="..\..\..\dependancies\EXILEDREF\UnityEngine.CoreModule.dll" />
+    <Analyzer Include="..\..\..\dependancies\EXILEDREF\UnityEngine.dll" />
+    <Analyzer Include="..\..\..\dependancies\EXILEDREF\UnityEngine.PhysicsModule.dll" />
+    <Analyzer Include="..\..\..\dependancies\plugins\AudioPlayerApi.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
