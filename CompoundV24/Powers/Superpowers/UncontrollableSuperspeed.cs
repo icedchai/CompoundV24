@@ -25,35 +25,27 @@
         {
             base.OnUsedAbility(player);
 
-            if (PlayerHasSpeedEnabled(player))
+            if (PlayerHasPowerEnabled(player))
             {
                 return;
             }
             else
             {
-                ToggleSpeed(player);
+                TogglePower(player);
                 Timing.CallDelayed(10f, () =>
                 {
-                    if (!PlayerHasSpeedEnabled(player))
+                    if (!PlayerHasPowerEnabled(player))
                     {
                         return;
                     }
 
-                    ToggleSpeed(player);
+                    TogglePower(player);
                     if (UnityEngine.Random.Range(0, 100) < 30)
                     {
                         player.EnableEffect(EffectType.CardiacArrest, 4);
                     }
                 });
             }
-        }
-
-        /// <inheritdoc/>
-        protected override void OnChangingRole(ChangingRoleEventArgs e)
-        {
-            base.OnChangingRole(e);
-            PlayerEnabledSpeed.Remove(e.Player);
-            SavedSpeeds.Remove(e.Player);
         }
     }
 }
