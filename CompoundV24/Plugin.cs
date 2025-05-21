@@ -50,7 +50,7 @@
             Singleton = this;
 
             SoundHelper.RegisterSounds();
-            RegisterPowers();
+            Config.RegisterPowers();
 
             eventHandlers = new ();
             eventHandlers.SubscribeEvents();
@@ -66,13 +66,6 @@
             };
             SettingBase.Register(settingBases);
             SettingBase.SendToAll();
-        }
-
-        private void RegisterPowers()
-        {
-            new LaserVision().Register();
-            new ControllableSuperspeed().Register();
-            new UncontrollableSuperspeed().Register();
         }
 
         /// <inheritdoc/>

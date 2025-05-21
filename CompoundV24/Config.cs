@@ -8,6 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using CompoundV24.Items;
+    using CompoundV24.Powers.Superpowers;
     using Exiled.API.Interfaces;
 
     #pragma warning disable SA1600
@@ -34,6 +35,19 @@
 
         [Description("The keybind label.")]
         public string SecondaryKeybindLabel { get; set; } = "Superpower secondary ability.";
+
+        public UncontrollableSuperspeed UncontrollableSuperspeed { get; set; } = new ();
+
+        public ControllableSuperspeed ControllableSuperspeed { get; set; } = new ();
+
+        public LaserVision LaserVisionPower { get; set; } = new ();
+
+        internal void RegisterPowers()
+        {
+            UncontrollableSuperspeed.Register();
+            ControllableSuperspeed.Register();
+            LaserVisionPower.Register();
+        }
 
         public Dictionary<string, List<string>> NameToPathForSounds { get; set; } = new Dictionary<string, List<string>>
         {
