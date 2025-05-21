@@ -123,36 +123,36 @@
 
         private IEnumerator<float> LaserEyeGlow(Transform head, Player player, bool left)
         {
-            Light red = Light.Create(position: Vector3.zero, rotation: Vector3.zero, spawn: false);
-            red.Color = new Color(1, 0, 0);
-            red.Intensity = 1;
-            red.Range = 0.1f;
-            red.ShadowType = LightShadows.None;
-            red.MovementSmoothing = 60;
-            red.Spawn();
+            Light eyeGlow = Light.Create(position: Vector3.zero, rotation: Vector3.zero, spawn: false);
+            eyeGlow.Color = LaserColor;
+            eyeGlow.Intensity = 1;
+            eyeGlow.Range = 0.02f;
+            eyeGlow.ShadowType = LightShadows.None;
+            eyeGlow.MovementSmoothing = 60;
+            eyeGlow.Spawn();
 
             while (LaserPlayers.Contains(player) && !Round.IsLobby)
             {
-                TrackToEye(head, red.Transform, left);
+                TrackToEye(head, eyeGlow.Transform, left);
                 yield return Timing.WaitForOneFrame;
             }
 
             int i = 0;
             while (!LaserPlayers.Contains(player) && i < 600)
             {
-                TrackToEye(head, red.Transform, left);
+                TrackToEye(head, eyeGlow.Transform, left);
                 i++;
                 yield return Timing.WaitForOneFrame;
             }
 
-            while (red.Intensity > 0)
+            while (eyeGlow.Intensity > 0)
             {
-                TrackToEye(head, red.Transform, left);
-                red.Intensity -= 0.1f;
+                TrackToEye(head, eyeGlow.Transform, left);
+                eyeGlow.Intensity -= 0.1f;
                 yield return Timing.WaitForOneFrame;
             }
 
-            red.Destroy();
+            eyeGlow.Destroy();
         }
 
         private void TrackToEye(Transform head, Transform tracker, bool left)
