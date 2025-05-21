@@ -71,7 +71,7 @@
                 }
 
                 e.Player.Heal(e.Player.MaxHealth);
-                PowerManager.Instance.Registered.Where(p => !p.Check(e.Player)).ToList().RandomItem()?.Grant(e.Player);
+                PowerManager.Instance.CompoundVPowers.Where(p => !p.Check(e.Player)).ToList().RandomItem()?.Grant(e.Player);
                 if (PowerManager.Instance.PlayersToPowers[e.Player].Count > 1)
                 {
                     SoundHelper.PlaySound("hallway");

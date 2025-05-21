@@ -21,6 +21,11 @@
         public abstract string Name { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this superpower is to be added when Compound V is used.
+        /// </summary>
+        public virtual bool IsCompoundV { get; set; } = false;
+
+        /// <summary>
         /// Gets the description of this power.
         /// </summary>
         public virtual string Description { get; } = "No description provided.";

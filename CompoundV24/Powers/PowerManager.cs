@@ -23,6 +23,11 @@
         internal List<Superpower> Registered { get; set; } = new List<Superpower>();
 
         /// <summary>
+        /// Gets the list of registered powers.
+        /// </summary>
+        internal IReadOnlyCollection<Superpower> CompoundVPowers => Registered.Where(p => p.IsCompoundV).ToList();
+
+        /// <summary>
         /// Gets an <see cref="IReadOnlyCollection{Superpower}"/> of <see cref="Superpower"/>'s.
         /// </summary>
         public IReadOnlyCollection<Superpower> Instances => Registered;

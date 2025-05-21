@@ -19,6 +19,8 @@
     {
         /// <inheritdoc/>
         public override string Name => "superspeed_uncontrolled";
+        /// <inheritdoc/>
+        public override bool IsCompoundV => true;
 
         /// <inheritdoc/>
         public override void OnUsedAbility(Player player)
