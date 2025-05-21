@@ -49,5 +49,13 @@
         }
 
         internal static void PlaySound(string sound, bool loop = false) => PlaySound(Vector3.zero, sound, out AudioPlayer _, out Speaker _, loop, false, 5, 50000);
+
+        internal static void PlaySound(Vector3 pos, string sound) => PlaySound(pos, sound, out AudioPlayer _, out Speaker _);
+
+        internal static void PlaySound(Player player, string sound, bool loop = false)
+        {
+            PlaySound(player.Position, sound, out AudioPlayer _, out Speaker speaker, loop: loop);
+            speaker.transform.parent = player.Transform;
+        }
     }
 }
