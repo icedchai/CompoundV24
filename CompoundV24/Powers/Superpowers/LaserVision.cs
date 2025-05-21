@@ -22,7 +22,14 @@
     public class LaserVision : Superpower
     {
         /// <inheritdoc/>
-        public override string Name => "laser_vision";
+        public override string Name { get; set; } = "laser_vision";
+
+        /// <inheritdoc/>
+        public override bool IsCompoundV { get; set; } = true;
+
+        public Color LaserColor { get; set; } = new Color(10, 0, 0);
+
+        public float DamagePerTick { get; set; } = 6f;
 
         private List<Player> LaserPlayers { get; set; } = new List<Player>();
 
@@ -39,7 +46,7 @@
             }
 
             var laser = Primitive.Create(PrimitiveType.Cube, Vector3.zero, Vector3.zero, Vector3.zero, false);
-            laser.Color = new Color(10, 0, 0, 0.9f);
+            laser.Color = new Color(LaserColor.r, LaserColor.g, LaserColor.b, 0.9f);
             laser.MovementSmoothing = 60;
             laser.Spawn();
 
@@ -104,7 +111,7 @@
 
                     player.ShowHitMarker();
 
-                    var dh = new CustomReasonDamageHandler("Deep, concentrated burns in the flesh suggest that subject was struck by high heat projectile.", 6);
+                    var dh = new CustomReasonDamageHandler("Deep, concentrated burns in the flesh suggest that subject was struck by high heat projectile.", DamagePerTick);
                     victim.Hurt(dh);
                 }
 

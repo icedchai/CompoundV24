@@ -18,7 +18,14 @@
     public class UncontrollableSuperspeed : ControllableSuperspeed
     {
         /// <inheritdoc/>
-        public override string Name => "superspeed_uncontrolled";
+        public override string Name { get; set; } = "superspeed_uncontrolled";
+
+        public float ChanceOfHeartAttackAfterRunning { get; set; } = 30f;
+
+        public float HeartAttackLength { get; set; } = 10f;
+
+        public float SuperspeedBurstLength { get; set; } = 10f;
+
         /// <inheritdoc/>
         public override bool IsCompoundV => true;
 
@@ -34,7 +41,7 @@
             else
             {
                 TogglePower(player);
-                Timing.CallDelayed(10f, () =>
+                Timing.CallDelayed(SuperspeedBurstLength, () =>
                 {
                     if (!PlayerHasPowerEnabled(player))
                     {
@@ -42,9 +49,16 @@
                     }
 
                     TogglePower(player);
-                    if (UnityEngine.Random.Range(0, 100) < 30)
+                    if (UnityEngine.Random.Range(0f, 100f) < ChanceOfHeartAttackAfterRunning)
                     {
-                        player.EnableEffect(EffectType.CardiacArrest, 4);
+                        player.EnableEffect(EffectType.CardiacArrest, HeartAttackLength);
+                        Timing.CallDelayed(HeartAttackLength, () =>
+                        {
+                            if (Check(player))
+                            {
+                                player.DisableEffect(EffectType.CardiacArrest);
+                            }
+                        });
                     }
                 });
             }
