@@ -50,7 +50,7 @@
             laser.MovementSmoothing = 60;
             laser.Spawn();
 
-            player.Connection.Send(new ObjectDestroyMessage { netId = laser.AdminToyBase.netId });
+            // player.Connection.Send(new ObjectDestroyMessage { netId = laser.AdminToyBase.netId });
             while (LaserPlayers.Contains(player) && !Round.IsLobby)
             {
                 if (!PlayersToRaycasts.TryGetValue(player, out hit))
@@ -90,8 +90,7 @@
 
         private IEnumerator<float> LaserLogic(Player player)
         {
-
-            player.EnableEffect(Exiled.API.Enums.EffectType.Flashed);
+            // player.EnableEffect(Exiled.API.Enums.EffectType.Flashed);
 
             while (LaserPlayers.Contains(player) && !Round.IsLobby)
             {
@@ -116,7 +115,7 @@
                 yield return Timing.WaitForOneFrame;
             }
 
-            player.DisableEffect(Exiled.API.Enums.EffectType.Flashed);
+            // player.DisableEffect(Exiled.API.Enums.EffectType.Flashed);
         }
 
         private IEnumerator<float> LaserEyeGlow(Transform head, Player player, bool left)
