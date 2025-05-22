@@ -41,7 +41,7 @@
         public override string Prefix => "compound_v";
 
         /// <inheritdoc/>
-        public override Version Version => new Version(0, 0, 1);
+        public override Version Version => new Version(0, 1, 0);
 
         /// <inheritdoc/>
         public override void OnEnabled()
