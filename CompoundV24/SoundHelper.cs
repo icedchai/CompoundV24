@@ -48,7 +48,7 @@
         /// <param name="speaker">The speaker playing the noise.</param>
         /// <param name="loop">Whether to loop the noise.</param>
         /// <param name="spatial">Whether to make the sound spatial.</param>
-        internal static void PlaySound(Vector3 pos, string sound, out AudioPlayer audioPlayer, out Speaker speaker, bool loop = false, bool spatial = true, float minDistance = 5, float maxDistance = 5f)
+        internal static void PlaySound(Vector3 pos, string sound, out AudioPlayer audioPlayer, out Speaker speaker, bool loop = false, bool spatial = true, float minDistance = 5, float maxDistance = 15f)
         {
             AudioPlayers++;
             audioPlayer = AudioPlayer.CreateOrGet($"icedchqi_v24sfx_{AudioPlayers}", destroyWhenAllClipsPlayed: true);
@@ -56,7 +56,7 @@
             audioPlayer.AddClip(RegisteredNoiseLookupTable[sound] is null ? sound : RegisteredNoiseLookupTable[sound].RandomItem(), loop: loop);
         }
 
-        internal static void PlaySound(string sound, bool loop = false) => PlaySound(Vector3.zero, sound, out AudioPlayer _, out Speaker _, loop, false, 5, 50000);
+        internal static void PlaySound(string sound, bool loop = false) => PlaySound(Vector3.zero, sound, out AudioPlayer _, out Speaker _, loop, false, 50000, 50000);
 
         internal static void PlaySound(Vector3 pos, string sound) => PlaySound(pos, sound, out AudioPlayer _, out Speaker _);
 
