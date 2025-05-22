@@ -51,12 +51,11 @@
 
         public Dictionary<string, List<string>> NameToPathForSounds { get; set; } = new Dictionary<string, List<string>>
         {
-            { "burn", new List<string> { @"full/path/to/burn.ogg", @"full/path/to/burn2.ogg" } },
-            { "hallway", new List<string> { @"full/path/to/hallway.ogg" } },
-            { "gore", new List<string> { @"full/path/to/gore.ogg", @"full/path/to/gore2.ogg" } },
-            { "laser", new List<string> { @"full/path/to/laser.ogg", @"full/path/to/laser.ogg" } },
-            { "laser_start", new List<string> { @"full/path/to/laser_start.ogg", @"full/path/to/laser_start.ogg" } },
-            { "laser_end", new List<string> { @"full/path/to/laser_end.ogg", @"full/path/to/laser_end.ogg" } },
+            { "hallway", new List<string> { "{defaultpath}_icedchqi_vsounds/hallway.ogg" } },
+            { "gore", new List<string> { "{defaultpath}_icedchqi_vsounds/gore.ogg", "{defaultpath}_icedchqi_vsounds/gore2.ogg" } },
+            { "laser", new List<string> { "{defaultpath}_icedchqi_vsounds/laser.ogg" } },
+            { "laser_start", new List<string> { "{defaultpath}_icedchqi_vsounds/laser_start.ogg" } },
+            { "laser_end", new List<string> { "{defaultpath}_icedchqi_vsounds/laser_end.ogg" } },
         };
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -21,8 +22,19 @@
             {
                 foreach (string path in kvp.Value)
                 {
-                    AudioClipStorage.LoadClip(path, path);
-                    Log.Debug($"registered {path} under {kvp.Key}");
+                    string newPath = path;
+                    if (path.Contains("{defaultpath}"))
+                    {
+                        string[] pathsSplit = path.Split(new string[] { "{defaultpath}" }, StringSplitOptions.RemoveEmptyEntries);
+                        Log.Info($"{pathsSplit[0]}");
+                        Log.Info($"{Paths.Plugins}");
+                        Log.Info(Path.Combine(Paths.Plugins, pathsSplit[0]));
+                        Log.Info(Path.Combine(Paths.Plugins, pathsSplit[0]));
+                        newPath = Path.Combine(Paths.Plugins, pathsSplit[0]);
+                    }
+
+                    AudioClipStorage.LoadClip(newPath, newPath);
+                    Log.Debug($"registered {newPath} under {kvp.Key}");
                 }
 
                 RegisteredNoiseLookupTable.Add(kvp.Key, kvp.Value);
