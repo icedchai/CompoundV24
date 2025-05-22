@@ -71,7 +71,17 @@
                 }
 
                 e.Player.Heal(e.Player.MaxHealth);
-                PowerManager.Instance.CompoundVPowers.Where(p => !p.Check(e.Player)).ToList().RandomItem()?.Grant(e.Player);
+
+                List<Superpower> availablePowers = PowerManager.Instance.CompoundVPowers.Where(p => !p.Check(e.Player)).ToList();
+                if (availablePowers.IsEmpty())
+                {
+                    return;
+                }
+
+                Superpower powerToGive = availablePowers.RandomItem();
+                powerToGive.Grant(e.Player);
+                e.Player.ShowHint(string.Format("You have gotten {0}\n{1}", powerToGive.Name, powerToGive.Description));
+
                 if (PowerManager.Instance.PlayersToPowers[e.Player].Count > 1)
                 {
                     SoundHelper.PlaySound("hallway");
