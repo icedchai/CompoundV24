@@ -26,14 +26,10 @@
                     if (path.Contains("{defaultpath}"))
                     {
                         string[] pathsSplit = path.Split(new string[] { "{defaultpath}" }, StringSplitOptions.RemoveEmptyEntries);
-                        Log.Info($"{pathsSplit[0]}");
-                        Log.Info($"{Paths.Plugins}");
-                        Log.Info(Path.Combine(Paths.Plugins, pathsSplit[0]));
-                        Log.Info(Path.Combine(Paths.Plugins, pathsSplit[0]));
                         newPath = Path.Combine(Paths.Plugins, pathsSplit[0]);
                     }
 
-                    AudioClipStorage.LoadClip(newPath, newPath);
+                    AudioClipStorage.LoadClip(newPath, path);
                     Log.Debug($"registered {newPath} under {kvp.Key}");
                 }
 
