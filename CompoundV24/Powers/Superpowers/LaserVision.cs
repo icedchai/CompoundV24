@@ -75,7 +75,7 @@
         {
             SoundHelper.PlaySound(player.Position, "laser_start");
 
-            SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true);
+            SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true, minDistance: 10, maxDistance: 20);
             speaker.transform.parent = player.Transform;
             speaker.Volume = 2;
 
