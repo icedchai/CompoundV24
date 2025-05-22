@@ -104,15 +104,13 @@
                 PlayersToRaycasts[player] = hit;
                 if (Player.TryGet(hit.collider, out Player victim))
                 {
-                    if (victim is null || victim == player || victim.IsGodModeEnabled)
+                    if (victim is not null && victim != player && !victim.IsGodModeEnabled)
                     {
-                        yield return Timing.WaitForOneFrame;
+                        player.ShowHitMarker();
+
+                        var dh = new CustomReasonDamageHandler("Deep, concentrated burns in the flesh suggest that subject was struck by high heat projectile.", DamagePerTick);
+                        victim.Hurt(dh);
                     }
-
-                    player.ShowHitMarker();
-
-                    var dh = new CustomReasonDamageHandler("Deep, concentrated burns in the flesh suggest that subject was struck by high heat projectile.", DamagePerTick);
-                    victim.Hurt(dh);
                 }
 
                 yield return Timing.WaitForOneFrame;
