@@ -52,7 +52,7 @@
         public Dictionary<string, List<string>> NameToPathForSounds { get; set; } = new Dictionary<string, List<string>>
         {
             { "hallway", new List<string> { "{defaultpath}_icedchqi_vsounds/hallway.ogg" } },
-            { "gore", new List<string> { "{defaultpath}_icedchqi_vsounds/gore.ogg", "{defaultpath}_icedchqi_vsounds/gore2.ogg" } },
+            { "gore", new List<string> { "{defaultpath}_icedchqi_vsounds/gore1.ogg", "{defaultpath}_icedchqi_vsounds/gore2.ogg" } },
             { "laser", new List<string> { "{defaultpath}_icedchqi_vsounds/laser.ogg" } },
             { "laser_start", new List<string> { "{defaultpath}_icedchqi_vsounds/laser_start.ogg" } },
             { "laser_end", new List<string> { "{defaultpath}_icedchqi_vsounds/laser_end.ogg" } },
