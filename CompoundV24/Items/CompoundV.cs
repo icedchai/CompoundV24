@@ -6,13 +6,9 @@
     using Exiled.API.Features.Spawn;
     using Exiled.CustomItems.API.Features;
     using Exiled.Events.EventArgs.Player;
-    using InventorySystem.Items.Usables;
     using MEC;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// The V24/TempV CustomItem.

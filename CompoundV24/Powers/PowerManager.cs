@@ -1,11 +1,8 @@
 ﻿namespace CompoundV24.Powers
 {
-    using System;
+    using Exiled.API.Features;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Exiled.API.Features;
 
     /// <summary>
     /// Manages the super powers and who has them.
@@ -35,7 +32,7 @@
         /// <summary>
         /// Gets or sets the lookup table between <see cref="ReferenceHub"/>'s and <see cref="Superpower"/>'s.
         /// </summary>
-        internal Dictionary<Player, List<Superpower>> PlayersToPowers { get; set; } = new ();
+        internal Dictionary<Player, List<Superpower>> PlayersToPowers { get; set; } = new();
 
         /// <summary>
         /// Unregisters all <see cref="Superpower"/>'s.

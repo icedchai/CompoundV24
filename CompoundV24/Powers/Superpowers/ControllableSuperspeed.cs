@@ -1,18 +1,10 @@
 ﻿namespace CompoundV24.Powers.Superpowers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using System.Threading.Tasks;
     using Exiled.API.Enums;
     using Exiled.API.Features;
-    using Exiled.API.Features.Pickups;
     using Exiled.Events.EventArgs.Player;
-    using MEC;
+    using System.Collections.Generic;
     using UnityEngine;
-    using UserSettings.ServerSpecific;
 
     /// <summary>
     /// Controllable superspeed.
@@ -35,7 +27,7 @@
         protected override void DisposeVariablesOnRestart()
         {
             base.DisposeVariablesOnRestart();
-            SavedSpeeds = new ();
+            SavedSpeeds = new();
         }
 
         /// <inheritdoc/>

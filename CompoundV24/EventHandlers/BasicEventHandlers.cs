@@ -4,12 +4,6 @@
     using Exiled.API.Features;
     using Exiled.API.Features.Core.UserSettings;
     using Exiled.Events.EventArgs.Player;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using UserSettings.ServerSpecific;
 
     /// <summary>
@@ -49,7 +43,7 @@
 
         private void ResetPowermanager()
         {
-            PowerManager.Instance.PlayersToPowers = new ();
+            PowerManager.Instance.PlayersToPowers = new();
         }
 
         private void OnSettingValueReceived(ReferenceHub hub, ServerSpecificSettingBase settingBase)

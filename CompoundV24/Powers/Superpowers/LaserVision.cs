@@ -1,17 +1,14 @@
 ﻿namespace CompoundV24.Powers.Superpowers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using AdminToys;
     using Exiled.API.Features;
-    using Exiled.API.Features.DamageHandlers;
     using Exiled.API.Features.Toys;
-    using Exiled.Events.Patches.Events.Player;
     using MEC;
-    using Mirror;
     using PlayerRoles.FirstPersonControl;
     using PlayerRoles.FirstPersonControl.Thirdperson;
     using PlayerStatsSystem;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using Light = Exiled.API.Features.Toys.Light;
     using Speaker = Speaker;

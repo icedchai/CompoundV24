@@ -3,12 +3,7 @@
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Events.EventArgs.Player;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using UserSettings.ServerSpecific;
 
     /// <summary>
     /// A power that can be given to a player.
@@ -18,7 +13,7 @@
         /// <summary>
         /// Gets the name of this power.
         /// </summary>
-        public abstract string Name { get; set;  }
+        public abstract string Name { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this superpower is to be added when Compound V is used.
@@ -38,7 +33,7 @@
         /// <summary>
         /// Gets or sets the special damage multipliers for this superpower. Will be multiplied ON TOP of the <see cref="UniversalDamageMultiplier"/>.
         /// </summary>
-        protected virtual Dictionary<DamageType, float> DamageMultipliers { get; set; } = new ()
+        protected virtual Dictionary<DamageType, float> DamageMultipliers { get; set; } = new()
         {
             { DamageType.Unknown, 1f },
         };

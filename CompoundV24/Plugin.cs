@@ -1,16 +1,11 @@
 ﻿namespace CompoundV24
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using CompoundV24.EventHandlers;
     using CompoundV24.Powers;
-    using CompoundV24.Powers.Superpowers;
     using Exiled.API.Features.Core.UserSettings;
     using Exiled.CustomItems.API.Features;
-    using UserSettings.ServerSpecific;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The entrypoint.
@@ -52,7 +47,7 @@
             SoundHelper.RegisterSounds();
             Config.RegisterPowers();
 
-            eventHandlers = new ();
+            eventHandlers = new();
             eventHandlers.SubscribeEvents();
 
             CustomItem.RegisterItems(overrideClass: Config);

@@ -12,7 +12,7 @@
         /// <summary>
         /// Gets or sets the lookup table between <see cref="Player"/>'s and a value indicating whether they have the power enabled.
         /// </summary>
-        protected List<Player> EnabledPlayers { get; set; } = new ();
+        protected List<Player> EnabledPlayers { get; set; } = new();
 
         /// <summary>
         /// Checks whether the player has the power enabled.
@@ -35,7 +35,7 @@
         protected override void DisposeVariablesOnRestart()
         {
             base.DisposeVariablesOnRestart();
-            EnabledPlayers = new ();
+            EnabledPlayers = new();
         }
 
         /// <inheritdoc/>

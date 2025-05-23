@@ -5,11 +5,7 @@
     using CompoundV24.Powers.Superpowers;
     using Exiled.API.Features;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Utf8Json.Resolvers.Internal;
 
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     internal class PowerCommand : ICommand
