@@ -103,10 +103,12 @@
     <Compile Include="EventHandlers\BasicEventHandlers.cs" />
     <Compile Include="Items\CompoundV.cs" />
     <Compile Include="Plugin.cs" />
+    <Compile Include="Powers\Superpower.cs" />
+    <Compile Include="Powers\Superpowers\TermiteShrinker.cs" />
     <Compile Include="Powers\Superpowers\ToggleablePower.cs" />
     <Compile Include="Powers\Superpowers\ControllableSuperspeed.cs" />
     <Compile Include="Powers\PowerManager.cs" />
-    <Compile Include="Powers\Superpower.cs" />
+    <Compile Include="Powers\Interfaces\IAbilityPower.cs" />
     <Compile Include="Powers\Superpowers\LaserVision.cs" />
     <Compile Include="Powers\Superpowers\RobinKillComponent.cs" />
     <Compile Include="Powers\Superpowers\UncontrollableSuperspeed.cs" />

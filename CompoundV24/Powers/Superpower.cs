@@ -3,22 +3,23 @@
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Events.EventArgs.Player;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
-    /// <summary>
-    /// A power that can be given to a player.
-    /// </summary>
     public abstract class Superpower
     {
         /// <summary>
         /// Gets the name of this power.
         /// </summary>
-        public abstract string Name { get; set; }
+        public abstract string Name { get; }
 
         /// <summary>
         /// Gets a value indicating whether this superpower is to be added when Compound V is used.
         /// </summary>
-        public virtual bool IsCompoundV { get; set; } = false;
+        public virtual bool IsCompoundV { get; } = false;
 
         /// <summary>
         /// Gets the description of this power.
@@ -227,15 +228,6 @@
         /// </summary>
         /// <param name="e">The event args.</param>
         protected virtual void OnChangingRole(ChangingRoleEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Called when the player fires their primary power.
-        /// </summary>
-        /// <param name="player">The player to apply this power to.</param>
-        public virtual void OnUsedAbility(Player player)
         {
 
         }

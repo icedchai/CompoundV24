@@ -1,5 +1,6 @@
 ﻿namespace CompoundV24.Powers
 {
+    using CompoundV24.Powers.Interfaces;
     using Exiled.API.Features;
     using System.Collections.Generic;
     using System.Linq;
@@ -20,6 +21,16 @@
         internal List<Superpower> Registered { get; set; } = new List<Superpower>();
 
         /// <summary>
+        /// Gets a lookup table of <see cref="IAbilityPower"/>'s and <see cref="List{T}"/> of <see cref="Player"/>'s with that power enabled.
+        /// </summary>
+        public Dictionary<IAbilityPower, List<Player>> PowersToEnabledPlayers { get; internal set; }
+
+        public bool PlayerHasPowerEnabled(IAbilityPower power, Player player)
+        {
+            return PowersToEnabledPlayers.TryGetValue(power, out List<Player> playerList) ? playerList.Contains(player) : false;
+        }
+
+        /// <summary>
         /// Gets the list of registered powers.
         /// </summary>
         internal IReadOnlyCollection<Superpower> CompoundVPowers => Registered.Where(p => p.IsCompoundV).ToList();
@@ -30,12 +41,12 @@
         public IReadOnlyCollection<Superpower> Instances => Registered;
 
         /// <summary>
-        /// Gets or sets the lookup table between <see cref="ReferenceHub"/>'s and <see cref="Superpower"/>'s.
+        /// Gets or sets the lookup table between <see cref="ReferenceHub"/>'s and <see cref="ActiveSuperpower"/>'s.
         /// </summary>
         internal Dictionary<Player, List<Superpower>> PlayersToPowers { get; set; } = new();
 
         /// <summary>
-        /// Unregisters all <see cref="Superpower"/>'s.
+        /// Unregisters all <see cref="ActiveSuperpower"/>'s.
         /// </summary>
         public void UnregisterAll()
         {

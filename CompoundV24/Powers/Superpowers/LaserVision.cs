@@ -1,6 +1,7 @@
 ﻿namespace CompoundV24.Powers.Superpowers
 {
     using AdminToys;
+    using CompoundV24.Powers.Interfaces;
     using Exiled.API.Features;
     using Exiled.API.Features.Toys;
     using MEC;
@@ -16,13 +17,13 @@
     /// <summary>
     /// The laser vision superpower.
     /// </summary>
-    public class LaserVision : Superpower
+    public class LaserVision : Superpower, IAbilityPower
     {
         /// <inheritdoc/>
-        public override string Name { get; set; } = "laser_vision";
+        public override string Name { get; } = "laser_vision";
 
         /// <inheritdoc/>
-        public override bool IsCompoundV { get; set; } = true;
+        public override bool IsCompoundV { get; } = true;
 
         public Color LaserColor { get; set; } = new Color(10, 0, 0);
 
@@ -44,7 +45,14 @@
 
             var laser = Primitive.Create(PrimitiveType.Cube, Vector3.zero, Vector3.zero, Vector3.zero, false);
             laser.Color = new Color(LaserColor.r, LaserColor.g, LaserColor.b, 0.9f);
+            laser.Flags = PrimitiveFlags.Visible;
             laser.MovementSmoothing = 60;
+
+            laser.Transform.localScale = new Vector3(0.025f * player.Scale.x, 0.025f * player.Scale.y, hit.distance + (0.3f * player.Scale.z));
+            TrackToEye(head, laser.Transform, left, player.Scale);
+            laser.Transform.LookAt(hit.point);
+            laser.Position += laser.Transform.forward * (hit.distance / 2);
+
             laser.Spawn();
 
             // player.Connection.Send(new ObjectDestroyMessage { netId = laser.AdminToyBase.netId });
@@ -56,9 +64,8 @@
                     yield break;
                 }
 
-                laser.Transform.localScale = new Vector3(0.025f, 0.025f, hit.distance + 0.3f);
-                TrackToEye(head, laser.Transform, left);
-                laser.Flags = PrimitiveFlags.Visible;
+                laser.Transform.localScale = new Vector3(0.025f * player.Scale.x, 0.025f * player.Scale.y, hit.distance + (0.3f * player.Scale.z));
+                TrackToEye(head, laser.Transform, left, player.Scale);
                 laser.Transform.LookAt(hit.point);
                 laser.Position += laser.Transform.forward * (hit.distance / 2);
                 yield return Timing.WaitForOneFrame;
@@ -72,7 +79,7 @@
         {
             SoundHelper.PlaySound(player.Position, "laser_start");
             yield return Timing.WaitForSeconds(0.3f);
-            SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true, minDistance: 5, maxDistance: 20);
+            SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true, minDistance: 20, maxDistance: 30);
             speaker.transform.parent = player.Transform;
             speaker.Volume = 2;
 
@@ -127,21 +134,21 @@
 
             while (LaserPlayers.Contains(player) && !Round.IsLobby)
             {
-                TrackToEye(head, eyeGlow.Transform, left);
+                TrackToEye(head, eyeGlow.Transform, left, player.Scale);
                 yield return Timing.WaitForOneFrame;
             }
 
             int i = 0;
             while (!LaserPlayers.Contains(player) && i < 600)
             {
-                TrackToEye(head, eyeGlow.Transform, left);
+                TrackToEye(head, eyeGlow.Transform, left, player.Scale);
                 i++;
                 yield return Timing.WaitForOneFrame;
             }
 
             while (eyeGlow.Intensity > 0)
             {
-                TrackToEye(head, eyeGlow.Transform, left);
+                TrackToEye(head, eyeGlow.Transform, left, player.Scale);
                 eyeGlow.Intensity -= 0.1f;
                 yield return Timing.WaitForOneFrame;
             }
@@ -149,9 +156,9 @@
             eyeGlow.Destroy();
         }
 
-        private void TrackToEye(Transform head, Transform tracker, bool left)
+        private void TrackToEye(Transform head, Transform tracker, bool left, Vector3 playerScale)
         {
-            tracker.position = head.position + (Vector3.up * 0.1f) + (head.forward * 0.1f) + (head.right * (left ? -0.04f : 0.04f));
+            tracker.position = head.position + (Vector3.up * 0.1f * playerScale.y) + (head.forward * 0.1f * playerScale.z) + (head.right * 0.04f * playerScale.x * (left ? -1 : 1));
         }
 
         /// <inheritdoc/>
@@ -171,7 +178,7 @@
         }
 
         /// <inheritdoc/>
-        public override void OnUsedAbility(Player player)
+        public void OnUsedAbility(Player player)
         {
             if (player.Role.Base is not IFpcRole fpcrole)
             {

@@ -1,5 +1,6 @@
 ﻿namespace CompoundV24.Powers.Superpowers
 {
+    using CompoundV24.Powers.Interfaces;
     using Exiled.API.Features;
     using Exiled.Events.EventArgs.Player;
     using System.Collections.Generic;
@@ -7,7 +8,7 @@
     /// <summary>
     /// Toggleable superpower.
     /// </summary>
-    public abstract class ToggleablePower : Superpower
+    public abstract class ToggleablePower : Superpower, IAbilityPower
     {
         /// <summary>
         /// Gets or sets the lookup table between <see cref="Player"/>'s and a value indicating whether they have the power enabled.
@@ -25,9 +26,8 @@
         }
 
         /// <inheritdoc/>
-        public override void OnUsedAbility(Player player)
+        public void OnUsedAbility(Player player)
         {
-            base.OnUsedAbility(player);
             TogglePower(player);
         }
 

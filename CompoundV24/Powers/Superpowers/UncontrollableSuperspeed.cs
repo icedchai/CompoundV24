@@ -10,7 +10,7 @@
     public class UncontrollableSuperspeed : ControllableSuperspeed
     {
         /// <inheritdoc/>
-        public override string Name { get; set; } = "superspeed_uncontrolled";
+        public override string Name { get; } = "superspeed_uncontrolled";
 
         public float ChanceOfHeartAttackAfterRunning { get; set; } = 30f;
 
@@ -22,7 +22,7 @@
         public override bool IsCompoundV => true;
 
         /// <inheritdoc/>
-        public override void OnUsedAbility(Player player)
+        public void OnUsedAbility(Player player)
         {
             base.OnUsedAbility(player);
 

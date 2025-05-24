@@ -12,7 +12,7 @@
     public class ControllableSuperspeed : ToggleablePower
     {
         /// <inheritdoc/>
-        public override string Name { get; set; } = "superspeed_controlled";
+        public override string Name { get; } = "superspeed_controlled";
 
         /// <summary>
         /// Gets or sets the lookup table between <see cref="Player"/>'s and the intensity of their <see cref="EffectType.MovementBoost"/> without the power enabled.
