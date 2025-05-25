@@ -1,6 +1,6 @@
-﻿namespace CompoundV24.Powers
+﻿namespace CompoundV24.API.Features.Powers
 {
-    using CompoundV24.Powers.Interfaces;
+    using CompoundV24.API.Features.Powers.Interfaces;
     using Exiled.API.Features;
     using System.Collections.Generic;
     using System.Linq;

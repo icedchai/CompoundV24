@@ -1,5 +1,6 @@
 ﻿namespace CompoundV24
 {
+    using CompoundV24.API.Features.Powers.Superpowers;
     using CompoundV24.Items;
     using CompoundV24.Powers.Superpowers;
     using Exiled.API.Interfaces;
@@ -37,11 +38,14 @@
 
         public LaserVision LaserVisionPower { get; set; } = new();
 
+        public TermiteShrinker TermiteShrinker { get; set; } = new();
+
         internal void RegisterPowers()
         {
             UncontrollableSuperspeed.Register();
             ControllableSuperspeed.Register();
             LaserVisionPower.Register();
+            TermiteShrinker.Register();
         }
 
         public Dictionary<string, List<string>> NameToPathForSounds { get; set; } = new Dictionary<string, List<string>>

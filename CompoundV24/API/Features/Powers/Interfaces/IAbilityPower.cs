@@ -1,9 +1,6 @@
-﻿namespace CompoundV24.Powers.Interfaces
+﻿namespace CompoundV24.API.Features.Powers.Interfaces
 {
-    using Exiled.API.Enums;
     using Exiled.API.Features;
-    using Exiled.Events.EventArgs.Player;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Interface for power that has an ability.

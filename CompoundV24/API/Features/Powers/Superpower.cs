@@ -1,4 +1,4 @@
-﻿namespace CompoundV24.Powers
+﻿namespace CompoundV24.API.Features.Powers
 {
     using Exiled.API.Enums;
     using Exiled.API.Features;

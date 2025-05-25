@@ -1,8 +1,9 @@
 ﻿namespace CompoundV24.Commands
 {
     using CommandSystem;
-    using CompoundV24.Powers;
-    using CompoundV24.Powers.Superpowers;
+    using CompoundV24.API.Features.Powers.Interfaces;
+    using CompoundV24.API.Features.Powers;
+    using CompoundV24.API.Features.Powers.Superpowers;
     using Exiled.API.Features;
     using System;
     using System.Linq;
@@ -40,11 +41,13 @@
                 return true;
             }
 
-            if (Player.TryGet(arguments.At(0), out Player dummy) && dummy.IsNPC)
+            if (Player.TryGet(arguments.At(0), out Player dummy) && dummy.IsNPC && PowerManager.Instance.Registered.TryGet(1, out Superpower test))
             {
-                LaserVision laser = PowerManager.Instance.Registered.First(p => p is LaserVision) as LaserVision;
-                laser.Grant(dummy);
-                laser.OnUsedAbility(dummy);
+                test.Grant(dummy);
+                if (test is IAbilityPower p)
+                {
+                    p.OnUsedAbility(player);
+                }
             }
 
             if (int.TryParse(arguments.At(0), out int number))

@@ -1,7 +1,8 @@
 ﻿namespace CompoundV24
 {
+    using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.EventHandlers;
-    using CompoundV24.Powers;
+    using CompoundV24.API.Features.Powers;
     using Exiled.API.Features.Core.UserSettings;
     using Exiled.CustomItems.API.Features;
     using System;
@@ -44,8 +45,12 @@
             base.OnEnabled();
             Singleton = this;
 
-            SoundHelper.RegisterSounds();
+            SoundHelper.RegisterSoundGroup(Config.NameToPathForSounds);
             Config.RegisterPowers();
+
+            Config defaultConfig = new Config();
+            SoundHelper.RegisterSoundGroup(defaultConfig.NameToPathForSounds);
+            defaultConfig = null;
 
             eventHandlers = new();
             eventHandlers.SubscribeEvents();

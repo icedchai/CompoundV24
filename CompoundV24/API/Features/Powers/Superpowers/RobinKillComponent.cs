@@ -1,5 +1,6 @@
-﻿namespace CompoundV24.Powers.Superpowers
+﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
+    using ColdWaterLibrary.Audio.Features.Helpers;
     using Exiled.API.Features;
     using MEC;
     using PlayerStatsSystem;

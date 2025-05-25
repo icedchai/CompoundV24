@@ -1,5 +1,6 @@
 ﻿namespace CompoundV24.Powers.Superpowers
 {
+    using CompoundV24.API.Features.Powers.Superpowers;
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using MEC;

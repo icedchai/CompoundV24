@@ -1,7 +1,7 @@
 ﻿namespace CompoundV24.EventHandlers
 {
+    using CompoundV24.API.Features.Powers.Interfaces;
     using CompoundV24.Powers;
-    using CompoundV24.Powers.Interfaces;
     using Exiled.API.Features;
     using Exiled.API.Features.Core.UserSettings;
     using Exiled.Events.EventArgs.Player;

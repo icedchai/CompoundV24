@@ -1,4 +1,4 @@
-﻿namespace CompoundV24.Powers.Superpowers
+﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
     using Exiled.API.Enums;
     using Exiled.API.Features;
@@ -56,7 +56,7 @@
             base.RemoveProperties(player);
 
             RobinKillComponent robinkill = player.GameObject.GetComponentInChildren<RobinKillComponent>();
-            GameObject.Destroy(robinkill.gameObject);
+            Object.Destroy(robinkill.gameObject);
         }
 
         /// <inheritdoc/>

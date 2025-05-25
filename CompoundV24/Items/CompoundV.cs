@@ -7,6 +7,7 @@
     using Exiled.CustomItems.API.Features;
     using Exiled.Events.EventArgs.Player;
     using MEC;
+    using ColdWaterLibrary.Audio.Features.Helpers;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -37,12 +38,14 @@
         /// <inheritdoc/>
         public override bool ShouldMessageOnGban => true;
 
+        /// <inheritdoc/>
         protected override void SubscribeEvents()
         {
             base.SubscribeEvents();
             Exiled.Events.Handlers.Player.UsedItem += OnUsed;
         }
 
+        /// <inheritdoc/>
         protected override void UnsubscribeEvents()
         {
             base.UnsubscribeEvents();

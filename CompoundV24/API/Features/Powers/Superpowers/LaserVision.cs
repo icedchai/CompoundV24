@@ -1,7 +1,8 @@
-﻿namespace CompoundV24.Powers.Superpowers
+﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
     using AdminToys;
-    using CompoundV24.Powers.Interfaces;
+    using ColdWaterLibrary.Audio.Features.Helpers;
+    using CompoundV24.API.Features.Powers.Interfaces;
     using Exiled.API.Features;
     using Exiled.API.Features.Toys;
     using MEC;
@@ -48,7 +49,7 @@
             laser.Flags = PrimitiveFlags.Visible;
             laser.MovementSmoothing = 60;
 
-            laser.Transform.localScale = new Vector3(0.025f * player.Scale.x, 0.025f * player.Scale.y, hit.distance + (0.3f * player.Scale.z));
+            laser.Transform.localScale = new Vector3(0.025f * player.Scale.x, 0.025f * player.Scale.y, hit.distance + 0.3f * player.Scale.z);
             TrackToEye(head, laser.Transform, left, player.Scale);
             laser.Transform.LookAt(hit.point);
             laser.Position += laser.Transform.forward * (hit.distance / 2);
@@ -64,7 +65,7 @@
                     yield break;
                 }
 
-                laser.Transform.localScale = new Vector3(0.025f * player.Scale.x, 0.025f * player.Scale.y, hit.distance + (0.3f * player.Scale.z));
+                laser.Transform.localScale = new Vector3(0.025f * player.Scale.x, 0.025f * player.Scale.y, hit.distance + 0.3f * player.Scale.z);
                 TrackToEye(head, laser.Transform, left, player.Scale);
                 laser.Transform.LookAt(hit.point);
                 laser.Position += laser.Transform.forward * (hit.distance / 2);
@@ -158,7 +159,7 @@
 
         private void TrackToEye(Transform head, Transform tracker, bool left, Vector3 playerScale)
         {
-            tracker.position = head.position + (Vector3.up * 0.1f * playerScale.y) + (head.forward * 0.1f * playerScale.z) + (head.right * 0.04f * playerScale.x * (left ? -1 : 1));
+            tracker.position = head.position + Vector3.up * 0.1f * playerScale.y + head.forward * 0.1f * playerScale.z + head.right * 0.04f * playerScale.x * (left ? -1 : 1);
         }
 
         /// <inheritdoc/>
