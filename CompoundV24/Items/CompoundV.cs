@@ -1,6 +1,6 @@
 ﻿namespace CompoundV24.Items
 {
-    using CompoundV24.Powers;
+    using CompoundV24.API.Features.Powers;
     using Exiled.API.Enums;
     using Exiled.API.Features.Attributes;
     using Exiled.API.Features.Spawn;
