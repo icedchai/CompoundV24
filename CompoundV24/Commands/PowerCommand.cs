@@ -41,13 +41,15 @@
                 return true;
             }
 
-            if (Player.TryGet(arguments.At(0), out Player dummy) && dummy.IsNPC && PowerManager.Instance.Registered.TryGet(1, out Superpower test))
+            if (Player.TryGet(arguments.At(0), out Player dummy) && dummy.IsNPC && PowerManager.Instance.Registered.TryGet(int.Parse(arguments.At(1)), out Superpower test))
             {
                 test.Grant(dummy);
                 if (test is IAbilityPower p)
                 {
                     p.OnUsedAbility(player);
                 }
+
+                return false;
             }
 
             if (int.TryParse(arguments.At(0), out int number))
