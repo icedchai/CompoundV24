@@ -47,9 +47,6 @@
     <Reference Include="ColdWaterLibrary">
       <HintPath>..\..\ColdWaterLibrary\ColdWaterLibrary\bin\Debug\ColdWaterLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="ColdWaterLibrary.Audio">
-      <HintPath>..\..\ColdWaterLibrary\ColdWaterLibrary.Audio\bin\Debug\ColdWaterLibrary.Audio.dll</HintPath>
-    </Reference>
     <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExMod.Exiled.9.6.0\lib\net48\CommandSystem.Core.dll</HintPath>
     </Reference>
