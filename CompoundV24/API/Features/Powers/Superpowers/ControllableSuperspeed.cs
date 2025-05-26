@@ -1,9 +1,9 @@
 ﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
+    using System.Collections.Generic;
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Events.EventArgs.Player;
-    using System.Collections.Generic;
     using UnityEngine;
 
     /// <summary>

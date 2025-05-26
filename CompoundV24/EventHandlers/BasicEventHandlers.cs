@@ -1,13 +1,12 @@
 ﻿namespace CompoundV24.EventHandlers
 {
-    using CompoundV24.API.Features.Powers.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
     using CompoundV24.API.Features.Powers;
+    using CompoundV24.API.Features.Powers.Interfaces;
     using Exiled.API.Features;
     using Exiled.API.Features.Core.UserSettings;
     using Exiled.Events.EventArgs.Player;
-    using System.Collections.Generic;
-    using System.Linq;
-    using UnityEngine;
     using UserSettings.ServerSpecific;
 
     /// <summary>
@@ -47,7 +46,7 @@
 
         private void ResetPowermanager()
         {
-            PowerManager.Instance.PlayersToPowers = new();
+            PowerManager.Instance.PlayersToPowers = new ();
         }
 
         private void AttemptAbility(int index, Player player, List<IAbilityPower> powers)

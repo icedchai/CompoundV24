@@ -1,24 +1,30 @@
 ﻿namespace CompoundV24.Commands
 {
-    using CommandSystem;
-    using CompoundV24.API.Features.Powers.Interfaces;
-    using CompoundV24.API.Features.Powers;
-    using CompoundV24.API.Features.Powers.Superpowers;
-    using Exiled.API.Features;
     using System;
     using System.Linq;
+    using CommandSystem;
+    using CompoundV24.API.Features.Powers;
+    using CompoundV24.API.Features.Powers.Interfaces;
+    using Exiled.API.Features;
 
+    /// <summary>
+    /// The command to grant and test powers.
+    /// </summary>
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     internal class PowerCommand : ICommand
     {
         private PowerManager PowerManager => PowerManager.Instance;
 
+        /// <inheritdoc/>
         public string Command => "compoundvpowers";
 
+        /// <inheritdoc/>
         public string[] Aliases => new string[] { "power", "superpowers", "compoundv" };
 
+        /// <inheritdoc/>
         public string Description => "Lists or gives powers by name or index.";
 
+        /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             response = string.Empty;

@@ -1,9 +1,9 @@
 ﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
+    using System.Collections.Generic;
     using CompoundV24.API.Features.Powers.Interfaces;
     using Exiled.API.Features;
     using Exiled.Events.EventArgs.Player;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Toggleable superpower.
@@ -26,7 +26,7 @@
         }
 
         /// <inheritdoc/>
-        public void OnUsedAbility(Player player)
+        public virtual void OnUsedAbility(Player player)
         {
             TogglePower(player);
         }
@@ -35,7 +35,7 @@
         protected override void DisposeVariablesOnRestart()
         {
             base.DisposeVariablesOnRestart();
-            EnabledPlayers = new();
+            EnabledPlayers = new ();
         }
 
         /// <inheritdoc/>

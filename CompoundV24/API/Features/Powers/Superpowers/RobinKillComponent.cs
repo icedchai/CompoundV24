@@ -6,6 +6,9 @@
     using PlayerStatsSystem;
     using UnityEngine;
 
+    /// <summary>
+    /// The script used to kill people by running into them.
+    /// </summary>
     public class RobinKillComponent : MonoBehaviour
     {
         /// <summary>
@@ -13,8 +16,14 @@
         /// </summary>
         public ControllableSuperspeed SuperspeedInstance { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="Player"/> who owns this kill component.
+        /// </summary>
         public Player Player { get; set; }
 
+        /// <summary>
+        /// Initializes a trigger.
+        /// </summary>
         internal void Init()
         {
             BoxCollider trigger = gameObject.GetComponent<BoxCollider>();

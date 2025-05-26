@@ -1,12 +1,12 @@
 ﻿namespace CompoundV24
 {
-    using ColdWaterLibrary.Audio.Features.Helpers;
-    using CompoundV24.EventHandlers;
-    using CompoundV24.API.Features.Powers;
-    using Exiled.API.Features.Core.UserSettings;
-    using Exiled.CustomItems.API.Features;
     using System;
     using System.Collections.Generic;
+    using ColdWaterLibrary.Audio.Features.Helpers;
+    using CompoundV24.API.Features.Powers;
+    using CompoundV24.EventHandlers;
+    using Exiled.API.Features.Core.UserSettings;
+    using Exiled.CustomItems.API.Features;
 
     /// <summary>
     /// The entrypoint.
@@ -52,7 +52,7 @@
             SoundHelper.RegisterSoundGroup(defaultConfig.NameToPathForSounds);
             defaultConfig = null;
 
-            eventHandlers = new();
+            eventHandlers = new ();
             eventHandlers.SubscribeEvents();
 
             CustomItem.RegisterItems(overrideClass: Config);

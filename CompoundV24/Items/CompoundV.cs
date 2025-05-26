@@ -1,5 +1,8 @@
 ﻿namespace CompoundV24.Items
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.API.Features.Powers;
     using Exiled.API.Enums;
     using Exiled.API.Features.Attributes;
@@ -7,9 +10,6 @@
     using Exiled.CustomItems.API.Features;
     using Exiled.Events.EventArgs.Player;
     using MEC;
-    using ColdWaterLibrary.Audio.Features.Helpers;
-    using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// The V24/TempV CustomItem.

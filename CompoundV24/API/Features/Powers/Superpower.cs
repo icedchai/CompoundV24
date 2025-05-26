@@ -1,14 +1,13 @@
 ﻿namespace CompoundV24.API.Features.Powers
 {
+    using System.Collections.Generic;
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Events.EventArgs.Player;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
+    /// <summary>
+    /// The abstract superpower.
+    /// </summary>
     public abstract class Superpower
     {
         /// <summary>
@@ -110,7 +109,6 @@
         /// <param name="player">The player to give this to.</param>
         protected virtual void ApplyProperties(Player player)
         {
-
         }
 
         /// <summary>
@@ -119,7 +117,6 @@
         /// <param name="player">The player to give this to.</param>
         protected virtual void RemoveProperties(Player player)
         {
-
         }
 
         /// <summary>
@@ -172,7 +169,6 @@
         /// </summary>
         protected virtual void DisposeVariablesOnRestart()
         {
-
         }
 
         private void InternalRemoveProperties(Player player)
@@ -220,7 +216,6 @@
         /// <param name="e">The event args.</param>
         protected virtual void OnHurting(HurtingEventArgs e)
         {
-
         }
 
         /// <summary>
@@ -229,7 +224,6 @@
         /// <param name="e">The event args.</param>
         protected virtual void OnChangingRole(ChangingRoleEventArgs e)
         {
-
         }
     }
 }

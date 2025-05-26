@@ -1,5 +1,7 @@
 ﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using AdminToys;
     using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.API.Features.Powers.Interfaces;
@@ -9,8 +11,6 @@
     using PlayerRoles.FirstPersonControl;
     using PlayerRoles.FirstPersonControl.Thirdperson;
     using PlayerStatsSystem;
-    using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
     using Light = Exiled.API.Features.Toys.Light;
     using Speaker = Speaker;
@@ -26,8 +26,14 @@
         /// <inheritdoc/>
         public override bool IsCompoundV { get; } = true;
 
+        /// <summary>
+        /// Gets or sets the color of the laser.
+        /// </summary>
         public Color LaserColor { get; set; } = new Color(10, 0, 0);
 
+        /// <summary>
+        /// Gets or sets the amount of damage to deal per tick.
+        /// </summary>
         public float DamagePerTick { get; set; } = 6f;
 
         private List<Player> LaserPlayers { get; set; } = new List<Player>();
