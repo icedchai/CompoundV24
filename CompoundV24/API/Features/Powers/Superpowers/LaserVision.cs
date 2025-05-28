@@ -84,7 +84,8 @@
 
         private IEnumerator<float> LaserSound(Player player)
         {
-            SoundHelper.PlaySound(player.Position, "laser_start");
+            SoundHelper.PlaySound(player.Position, "laser_start", out _, out Speaker speaker1, false, true, 20, 30);
+            speaker1.transform.parent = player.Transform;
             yield return Timing.WaitForSeconds(0.3f);
             SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true, minDistance: 20, maxDistance: 30);
             speaker.transform.parent = player.Transform;
@@ -95,7 +96,8 @@
                 yield return Timing.WaitForOneFrame;
             }
 
-            SoundHelper.PlaySound(player.Position, "laser_end");
+            SoundHelper.PlaySound(player.Position, "laser_start", out _, out speaker1, false, true, 20, 30);
+            speaker1.transform.parent = player.Transform;
             burnPlayer.Destroy();
         }
 
