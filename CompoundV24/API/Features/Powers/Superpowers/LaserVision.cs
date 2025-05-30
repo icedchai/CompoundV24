@@ -18,7 +18,7 @@
     /// <summary>
     /// The laser vision superpower.
     /// </summary>
-    public class LaserVision : Superpower, IAbilityPower
+    public class LaserVision : ToggleablePower
     {
         /// <inheritdoc/>
         public override string Name { get; } = "laser_vision";
@@ -35,8 +35,6 @@
         /// Gets or sets the amount of damage to deal per tick.
         /// </summary>
         public float DamagePerTick { get; set; } = 6f;
-
-        private List<Player> LaserPlayers { get; set; } = new List<Player>();
 
         private Dictionary<Player, RaycastHit> PlayersToRaycasts { get; set; } = new Dictionary<Player, RaycastHit>();
 
@@ -63,7 +61,7 @@
             laser.Spawn();
 
             // player.Connection.Send(new ObjectDestroyMessage { netId = laser.AdminToyBase.netId });
-            while (LaserPlayers.Contains(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
             {
                 if (!PlayersToRaycasts.TryGetValue(player, out hit))
                 {
@@ -91,7 +89,7 @@
             speaker.transform.parent = player.Transform;
             speaker.Volume = 2;
 
-            while (LaserPlayers.Contains(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
             {
                 yield return Timing.WaitForOneFrame;
             }
@@ -105,7 +103,7 @@
         {
             // player.EnableEffect(Exiled.API.Enums.EffectType.Flashed);
 
-            while (LaserPlayers.Contains(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
             {
                 Physics.Raycast(player.CameraTransform.position, player.CameraTransform.forward, out RaycastHit hit, Mathf.Infinity, ~(1 << 8 | 1 << 13 | 1 << 9), QueryTriggerInteraction.Ignore);
                 if (!PlayersToRaycasts.TryGetValue(player, out RaycastHit _))
@@ -121,6 +119,7 @@
                         player.ShowHitMarker();
 
                         var dh = new CustomReasonDamageHandler("Deep, concentrated burns in the flesh suggest that subject was struck by high heat projectile.", DamagePerTick);
+
                         victim.Hurt(dh);
                     }
                 }
@@ -141,14 +140,14 @@
             eyeGlow.MovementSmoothing = 60;
             eyeGlow.Spawn();
 
-            while (LaserPlayers.Contains(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
             {
                 TrackToEye(head, eyeGlow.Transform, left, player.Scale);
                 yield return Timing.WaitForOneFrame;
             }
 
             int i = 0;
-            while (!LaserPlayers.Contains(player) && i < 600)
+            while (!PlayerHasPowerEnabled(player) && i < 600)
             {
                 TrackToEye(head, eyeGlow.Transform, left, player.Scale);
                 i++;
@@ -174,7 +173,6 @@
         protected override void RemoveProperties(Player player)
         {
             base.RemoveProperties(player);
-            LaserPlayers.Remove(player);
             PlayersToRaycasts.Remove(player);
         }
 
@@ -182,30 +180,23 @@
         protected override void DisposeVariablesOnRestart()
         {
             base.DisposeVariablesOnRestart();
-            LaserPlayers.Clear();
             PlayersToRaycasts.Clear();
         }
 
         /// <inheritdoc/>
-        public void OnUsedAbility(Player player)
+        protected override void EnablePower(Player player)
         {
             if (player.Role.Base is not IFpcRole fpcrole)
             {
                 return;
             }
 
-            if (LaserPlayers.Contains(player))
-            {
-                LaserPlayers.Remove(player);
-                return;
-            }
+            base.EnablePower(player);
 
             // Physics.Raycast(player.CameraTransform.position, player.CameraTransform.forward, out RaycastHit hit, Mathf.Infinity, ~(1 << 8 | 1 << 13 | 1 << 9), QueryTriggerInteraction.Ignore);
             CharacterModel characterModel = fpcrole.FpcModule.CharacterModelInstance;
             List<HitboxIdentity> matchedHeadHitbox = characterModel.Hitboxes.Where(hbox => hbox.name.ToLower().Contains("head")).ToList();
             Transform head = matchedHeadHitbox.FirstOrDefault().transform;
-
-            LaserPlayers.Add(player);
 
             Timing.RunCoroutine(LaserSound(player));
             Timing.RunCoroutine(LaserEyeGlow(head, player, false));
