@@ -13,12 +13,12 @@
         /// <summary>
         /// Gets the name of this power.
         /// </summary>
-        public abstract string Name { get; }
+        public abstract string Name { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this superpower is to be added when Compound V is used.
         /// </summary>
-        public virtual bool IsCompoundV { get; } = false;
+        public virtual bool IsCompoundV { get; set; } = false;
 
         /// <summary>
         /// Gets the description of this power.

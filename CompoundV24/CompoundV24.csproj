@@ -109,7 +109,6 @@
     <Compile Include="Items\CompoundV.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="API\Features\Powers\Superpower.cs" />
-    <Compile Include="API\Features\Powers\Superpowers\TermiteShrinker.cs" />
     <Compile Include="API\Features\Powers\Superpowers\ToggleablePower.cs" />
     <Compile Include="API\Features\Powers\Superpowers\ControllableSuperspeed.cs" />
     <Compile Include="API\Features\Powers\PowerManager.cs" />

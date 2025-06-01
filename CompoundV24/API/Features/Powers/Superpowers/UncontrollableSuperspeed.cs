@@ -12,7 +12,7 @@
     public class UncontrollableSuperspeed : ControllableSuperspeed
     {
         /// <inheritdoc/>
-        public override string Name { get; } = "superspeed_uncontrolled";
+        public override string Name { get; set; } = "superspeed_uncontrolled";
 
         /// <summary>
         /// Gets or sets the chance of a <see cref="CardiacArrest"/> after a player is done running.
@@ -30,7 +30,7 @@
         public float SuperspeedBurstLength { get; set; } = 10f;
 
         /// <inheritdoc/>
-        public override bool IsCompoundV => true;
+        public override bool IsCompoundV { get; set; } = true;
 
         /// <inheritdoc/>
         public override void OnUsedAbility(Player player)

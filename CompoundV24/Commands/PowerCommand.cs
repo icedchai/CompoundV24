@@ -1,6 +1,7 @@
 ﻿namespace CompoundV24.Commands
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using CommandSystem;
     using CompoundV24.API.Features.Powers;
@@ -47,12 +48,12 @@
                 return true;
             }
 
-            if (Player.TryGet(arguments.At(0), out Player dummy) && dummy.IsNPC && PowerManager.Instance.Registered.TryGet(int.Parse(arguments.At(1)), out Superpower test))
+            if (arguments.Count != 1 && Player.TryGet(arguments.At(1), out Player dummy) && PowerManager.Instance.Registered.TryGet(int.Parse(arguments.At(0)), out Superpower test))
             {
                 test.Grant(dummy);
                 if (test is IAbilityPower p)
                 {
-                    p.OnUsedAbility(player);
+                    p.OnUsedAbility(dummy);
                 }
 
                 return false;

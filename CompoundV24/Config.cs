@@ -38,8 +38,6 @@
 
         public LaserVision LaserVisionPower { get; set; } = new ();
 
-        public TermiteShrinker TermiteShrinker { get; set; } = new ();
-
         public Dictionary<string, List<string>> NameToPathForSounds { get; set; } = new Dictionary<string, List<string>>
         {
             { "hallway", new List<string> { "{defaultpath}_icedchqi_vsounds/hallway.ogg" } },
@@ -54,7 +52,6 @@
             UncontrollableSuperspeed.Register();
             ControllableSuperspeed.Register();
             LaserVisionPower.Register();
-            TermiteShrinker.Register();
         }
     }
 }

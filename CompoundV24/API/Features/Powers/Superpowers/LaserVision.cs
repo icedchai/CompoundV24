@@ -21,10 +21,10 @@
     public class LaserVision : ToggleablePower
     {
         /// <inheritdoc/>
-        public override string Name { get; } = "laser_vision";
+        public override string Name { get; set; } = "laser_vision";
 
         /// <inheritdoc/>
-        public override bool IsCompoundV { get; } = true;
+        public override bool IsCompoundV { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the color of the laser.
