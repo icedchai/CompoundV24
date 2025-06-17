@@ -29,7 +29,7 @@
         /// <summary>
         /// Gets or sets the color of the laser.
         /// </summary>
-        public Color LaserColor { get; set; } = new Color(10, 0, 0);
+        // public Color LaserColor { get; set; } = new Color(10, 0, 0);
 
         /// <summary>
         /// Gets or sets the amount of damage to deal per tick.
@@ -38,10 +38,28 @@
 
         private Dictionary<Player, RaycastHit> PlayersToRaycasts { get; set; } = new Dictionary<Player, RaycastHit>();
 
+        private static Color GetColor(Player player)
+        {
+            string nick = (player.CustomName ?? player.Nickname).ToLower();
+            if (nick.Contains("homelander"))
+            {
+                return new Color(100f, 0f, 0f);
+            }
+
+            if (nick.Contains("butcher") || nick.Contains("billy") || nick.Contains("william"))
+            {
+                return new Color(100f, 70f, 0f);
+            }
+
+            System.Random random = new System.Random(player.Id * player.RoleManager.CurrentRole.UniqueLifeIdentifier);
+
+            return new Color((float)random.NextDouble() * 100, (float)random.NextDouble() * 100f, (float)random.NextDouble() * 100f);
+        }
+
         private IEnumerator<float> LaserRender(Transform head, Player player, bool left)
         {
             yield return Timing.WaitForOneFrame;
-
+            Color LaserColor = GetColor(player);
             RaycastHit hit;
             if (!PlayersToRaycasts.TryGetValue(player, out hit))
             {
@@ -82,20 +100,20 @@
 
         private IEnumerator<float> LaserSound(Player player)
         {
-            SoundHelper.PlaySound(player.Position, "laser_start", out _, out Speaker speaker1, false, true, 20, 30);
+            SoundHelper.PlaySound(player.Position, "laser_start", out _, out Speaker speaker1, false, true, 15, 30);
             speaker1.transform.parent = player.Transform;
             yield return Timing.WaitForSeconds(0.3f);
-            SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true, minDistance: 20, maxDistance: 30);
+            SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true, minDistance: 15, maxDistance: 30);
             speaker.transform.parent = player.Transform;
-            speaker.Volume = 2;
 
             while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
             {
                 yield return Timing.WaitForOneFrame;
             }
 
-            SoundHelper.PlaySound(player.Position, "laser_start", out _, out speaker1, false, true, 20, 30);
+            SoundHelper.PlaySound(player.Position, "laser_end", out _, out speaker1, false, true, 15, 30);
             speaker1.transform.parent = player.Transform;
+            yield return Timing.WaitForSeconds(0.2f);
             burnPlayer.Destroy();
         }
 
@@ -132,6 +150,8 @@
 
         private IEnumerator<float> LaserEyeGlow(Transform head, Player player, bool left)
         {
+            yield break;
+            Color LaserColor = GetColor(player);
             Light eyeGlow = Light.Create(position: Vector3.zero, rotation: Vector3.zero, spawn: false);
             eyeGlow.Color = LaserColor;
             eyeGlow.Intensity = 1;

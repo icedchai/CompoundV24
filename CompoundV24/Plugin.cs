@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Xml.Linq;
     using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.API.Features.Powers;
     using CompoundV24.EventHandlers;
     using Exiled.API.Features.Core.UserSettings;
     using Exiled.CustomItems.API.Features;
+    using UserSettings.ServerSpecific;
 
     /// <summary>
     /// The entrypoint.
@@ -54,8 +56,9 @@
 
             eventHandlers = new ();
             eventHandlers.SubscribeEvents();
-
             CustomItem.RegisterItems(overrideClass: Config);
+
+            // SSGroupHeader ssHeader = new SSGroupHeader(Config.SettingHeaderLabel);
 
             HeaderSetting header = new HeaderSetting(Config.SettingHeaderLabel);
             IEnumerable<SettingBase> settingBases = new SettingBase[]
