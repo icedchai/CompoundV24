@@ -19,7 +19,6 @@
         /// </summary>
         public void SubscribeEvents()
         {
-            Exiled.Events.Handlers.Player.Verified += OnVerified;
             Exiled.Events.Handlers.Server.RestartingRound += ResetPowermanager;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += OnSettingValueReceived;
         }
@@ -29,19 +28,8 @@
         /// </summary>
         public void UnsubscribeEvents()
         {
-            Exiled.Events.Handlers.Player.Verified -= OnVerified;
             Exiled.Events.Handlers.Server.RestartingRound -= ResetPowermanager;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived -= OnSettingValueReceived;
-        }
-
-        private void OnVerified(VerifiedEventArgs e)
-        {
-            if (e.Player is null)
-            {
-                return;
-            }
-
-            SettingBase.SendToPlayer(e.Player);
         }
 
         private void ResetPowermanager()

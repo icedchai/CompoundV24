@@ -4,11 +4,7 @@
     using System.Linq;
     using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.API.Features.Powers;
-    using Exiled.API.Enums;
-    using Exiled.API.Features.Attributes;
-    using Exiled.API.Features.Spawn;
-    using Exiled.CustomItems.API.Features;
-    using Exiled.Events.EventArgs.Player;
+    using LabApi.Events.Arguments.PlayerEvents;
     using MEC;
 
     /// <summary>
@@ -52,7 +48,7 @@
             Exiled.Events.Handlers.Player.UsedItem -= OnUsed;
         }
 
-        private void OnUsed(UsedItemEventArgs e)
+        private void OnUsed(PlayerUsedItemEventArgs e)
         {
             if (!Check(e.Item))
             {

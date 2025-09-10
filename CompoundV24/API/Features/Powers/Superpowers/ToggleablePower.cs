@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using CompoundV24.API.Features.Powers.Interfaces;
-    using Exiled.API.Features;
-    using Exiled.Events.EventArgs.Player;
+    using LabApi.Events.Arguments.PlayerEvents;
+    using LabApi.Features.Wrappers;
 
     /// <summary>
     /// Toggleable superpower.
@@ -39,7 +39,7 @@
         }
 
         /// <inheritdoc/>
-        protected override void OnChangingRole(ChangingRoleEventArgs e)
+        protected override void OnChangingRole(PlayerChangingRoleEventArgs e)
         {
             base.OnChangingRole(e);
             EnabledPlayers.Remove(e.Player);

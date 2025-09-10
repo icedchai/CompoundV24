@@ -1,9 +1,8 @@
 ﻿namespace CompoundV24.API.Features.Powers
 {
+    using LabApi.Events.Arguments.PlayerEvents;
+    using LabApi.Features.Wrappers;
     using System.Collections.Generic;
-    using Exiled.API.Enums;
-    using Exiled.API.Features;
-    using Exiled.Events.EventArgs.Player;
 
     /// <summary>
     /// The abstract superpower.
@@ -29,14 +28,6 @@
         /// Gets the <see cref="PowerManager"/> singleton.
         /// </summary>
         protected static PowerManager PowerManager => PowerManager.Instance;
-
-        /// <summary>
-        /// Gets or sets the special damage multipliers for this superpower. Will be multiplied ON TOP of the <see cref="UniversalDamageMultiplier"/>.
-        /// </summary>
-        protected virtual Dictionary<DamageType, float> DamageMultipliers { get; set; } = new()
-        {
-            { DamageType.Unknown, 1f },
-        };
 
         /// <summary>
         /// Gets or sets the damage multiplier that will be applied to all damage for this superpower.
@@ -181,24 +172,17 @@
             RemoveProperties(player);
         }
 
-        private void OnInternalHurting(HurtingEventArgs e)
+        private void OnInternalHurting(PlayerHurtingEventArgs e)
         {
             if (e.Player is null || !Check(e.Player))
             {
                 return;
             }
 
-            e.Amount *= UniversalDamageMultiplier;
-
-            if (DamageMultipliers.TryGetValue(e.DamageHandler.Type, out float multiplier))
-            {
-                e.Amount *= multiplier;
-            }
-
             OnHurting(e);
         }
 
-        private void OnInternalChangingRole(ChangingRoleEventArgs e)
+        private void OnInternalChangingRole(PlayerChangingRoleEventArgs e)
         {
             if (e.Player is null || !Check(e.Player))
             {
@@ -214,7 +198,7 @@
         /// Ran when someone with this superpower is damaged.
         /// </summary>
         /// <param name="e">The event args.</param>
-        protected virtual void OnHurting(HurtingEventArgs e)
+        protected virtual void OnHurting(PlayerHurtingEventArgs e)
         {
         }
 
@@ -222,7 +206,7 @@
         /// Ran when someone with this superpower has their role changed.
         /// </summary>
         /// <param name="e">The event args.</param>
-        protected virtual void OnChangingRole(ChangingRoleEventArgs e)
+        protected virtual void OnChangingRole(PlayerChangingRoleEventArgs e)
         {
         }
     }

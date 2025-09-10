@@ -1,7 +1,7 @@
 ﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
     using ColdWaterLibrary.Audio.Features.Helpers;
-    using Exiled.API.Features;
+    using LabApi.Features.Wrappers;
     using MEC;
     using PlayerStatsSystem;
     using UnityEngine;
@@ -40,13 +40,13 @@
 
         private void OnTriggerEnter(Collider other)
         {
-            Player victim = Player.Get(other);
+            Player victim = Player.Get(other.gameObject);
             if (victim is null || victim == Player || victim.IsGodModeEnabled || !SuperspeedInstance.PlayerHasPowerEnabled(Player) || Player.Velocity.magnitude < 10)
             {
                 return;
             }
 
-            Player.ShowHitMarker();
+            Player.SendHitMarker();
             SoundHelper.PlaySound(victim.Position, "gore");
             Timing.CallDelayed(0.01f, () =>
             {
@@ -57,7 +57,7 @@
                 h = new CustomReasonDamageHandler("Liquification suggests that subject was struck by high speed object.", 150);
                 typeof(StandardDamageHandler).GetField("StartVelocity", BindingFlags.NonPublic | BindingFlags.Instance)
                     .SetValue(h, Player.Velocity * 20);*/
-                victim.Hurt(h);
+                victim.Damage(h);
 
                 // victim.ReferenceHub.playerStats.DealDamage(h);
             });

@@ -5,15 +5,14 @@
     using AdminToys;
     using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.API.Features.Powers.Interfaces;
-    using Exiled.API.Features;
-    using Exiled.API.Features.Toys;
+    using LabApi.Features.Wrappers;
     using MEC;
     using PlayerRoles.FirstPersonControl;
     using PlayerRoles.FirstPersonControl.Thirdperson;
     using PlayerStatsSystem;
     using UnityEngine;
-    using Light = Exiled.API.Features.Toys.Light;
     using Speaker = Speaker;
+    using Primitive = LabApi.Features.Wrappers.PrimitiveObjectToy;
 
     /// <summary>
     /// The laser vision superpower.
@@ -31,6 +30,13 @@
         /// </summary>
         // public Color LaserColor { get; set; } = new Color(10, 0, 0);
 
+        private static LaserVision instance;
+
+        /// <summary>
+        /// Gets or sets the multiplier for laser colors.
+        /// </summary>
+        public float LaserColorMultiplier { get; set; } = 10f;
+
         /// <summary>
         /// Gets or sets the amount of damage to deal per tick.
         /// </summary>
@@ -38,22 +44,22 @@
 
         private Dictionary<Player, RaycastHit> PlayersToRaycasts { get; set; } = new Dictionary<Player, RaycastHit>();
 
-        private static Color GetColor(Player player)
+        private Color GetColor(Player player)
         {
-            string nick = (player.CustomName ?? player.Nickname).ToLower();
+            string nick = player.Nickname.ToLower();
             if (nick.Contains("homelander"))
             {
-                return new Color(100f, 0f, 0f);
+                return new Color(LaserColorMultiplier, 0f, 0f);
             }
 
             if (nick.Contains("butcher") || nick.Contains("billy") || nick.Contains("william"))
             {
-                return new Color(100f, 70f, 0f);
+                return new Color(LaserColorMultiplier, LaserColorMultiplier * 0.5f, 0f);
             }
 
             System.Random random = new System.Random(player.Id * player.RoleManager.CurrentRole.UniqueLifeIdentifier);
 
-            return new Color((float)random.NextDouble() * 100, (float)random.NextDouble() * 100f, (float)random.NextDouble() * 100f);
+            return new Color((float)random.NextDouble() * LaserColorMultiplier, (float)random.NextDouble() * LaserColorMultiplier, (float)random.NextDouble() * LaserColorMultiplier);
         }
 
         private IEnumerator<float> LaserRender(Transform head, Player player, bool left)
@@ -79,7 +85,7 @@
             laser.Spawn();
 
             // player.Connection.Send(new ObjectDestroyMessage { netId = laser.AdminToyBase.netId });
-            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && Round.IsRoundStarted)
             {
                 if (!PlayersToRaycasts.TryGetValue(player, out hit))
                 {
