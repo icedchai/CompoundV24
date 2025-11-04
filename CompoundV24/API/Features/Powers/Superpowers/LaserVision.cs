@@ -13,6 +13,7 @@
     using UnityEngine;
     using Speaker = Speaker;
     using Primitive = LabApi.Features.Wrappers.PrimitiveObjectToy;
+    using Light = LabApi.Features.Wrappers.LightSourceToy;
 
     /// <summary>
     /// The laser vision superpower.
@@ -57,7 +58,7 @@
                 return new Color(LaserColorMultiplier, LaserColorMultiplier * 0.5f, 0f);
             }
 
-            System.Random random = new System.Random(player.Id * player.RoleManager.CurrentRole.UniqueLifeIdentifier);
+            System.Random random = new System.Random(player.PlayerId * player.RoleBase.UniqueLifeIdentifier);
 
             return new Color((float)random.NextDouble() * LaserColorMultiplier, (float)random.NextDouble() * LaserColorMultiplier, (float)random.NextDouble() * LaserColorMultiplier);
         }
@@ -72,8 +73,9 @@
                 yield break;
             }
 
-            var laser = Primitive.Create(PrimitiveType.Cube, Vector3.zero, Vector3.zero, Vector3.zero, false);
-            laser.Color = new Color(LaserColor.r, LaserColor.g, LaserColor.b, 0.9f);
+            var laser = Primitive.Create(Vector3.zero, Quaternion.Euler(Vector3.zero), null, false);
+            laser.Type = PrimitiveType.Cube;
+            laser.Color = new Color(LaserColor.r, LaserColor.g, LaserColor.b, 0.99f);
             laser.Flags = PrimitiveFlags.Visible;
             laser.MovementSmoothing = 60;
 
@@ -107,18 +109,18 @@
         private IEnumerator<float> LaserSound(Player player)
         {
             SoundHelper.PlaySound(player.Position, "laser_start", out _, out Speaker speaker1, false, true, 15, 30);
-            speaker1.transform.parent = player.Transform;
+            speaker1.transform.parent = player.GameObject.transform;
             yield return Timing.WaitForSeconds(0.3f);
             SoundHelper.PlaySound(player.Position, "laser", out AudioPlayer burnPlayer, out Speaker speaker, true, minDistance: 15, maxDistance: 30);
-            speaker.transform.parent = player.Transform;
 
-            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && Round.IsRoundStarted)
             {
+                speaker.Position = player.Position;
                 yield return Timing.WaitForOneFrame;
             }
 
             SoundHelper.PlaySound(player.Position, "laser_end", out _, out speaker1, false, true, 15, 30);
-            speaker1.transform.parent = player.Transform;
+            speaker1.transform.parent = player.GameObject.transform;
             yield return Timing.WaitForSeconds(0.2f);
             burnPlayer.Destroy();
         }
@@ -127,24 +129,24 @@
         {
             // player.EnableEffect(Exiled.API.Enums.EffectType.Flashed);
 
-            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && Round.IsRoundStarted)
             {
-                Physics.Raycast(player.CameraTransform.position, player.CameraTransform.forward, out RaycastHit hit, Mathf.Infinity, ~(1 << 8 | 1 << 13 | 1 << 9), QueryTriggerInteraction.Ignore);
+                Physics.Raycast(player.Camera.position, player.Camera.forward, out RaycastHit hit, Mathf.Infinity, ~(1 << 8 | 1 << 13 | 1 << 9), QueryTriggerInteraction.Ignore);
                 if (!PlayersToRaycasts.TryGetValue(player, out RaycastHit _))
                 {
                     PlayersToRaycasts.Add(player, hit);
                 }
 
                 PlayersToRaycasts[player] = hit;
-                if (Player.TryGet(hit.collider, out Player victim))
+                if (Player.TryGet(hit.collider.gameObject, out Player victim))
                 {
                     if (victim is not null && victim != player && !victim.IsGodModeEnabled)
                     {
-                        player.ShowHitMarker();
+                        player.SendHitMarker();
 
                         var dh = new CustomReasonDamageHandler("Deep, concentrated burns in the flesh suggest that subject was struck by high heat projectile.", DamagePerTick);
 
-                        victim.Hurt(dh);
+                        victim.Damage(dh);
                     }
                 }
 
@@ -158,7 +160,7 @@
         {
             yield break;
             Color LaserColor = GetColor(player);
-            Light eyeGlow = Light.Create(position: Vector3.zero, rotation: Vector3.zero, spawn: false);
+            Light eyeGlow = Light.Create(position: Vector3.zero, networkSpawn: false);
             eyeGlow.Color = LaserColor;
             eyeGlow.Intensity = 1;
             eyeGlow.Range = 0.02f;
@@ -166,7 +168,7 @@
             eyeGlow.MovementSmoothing = 60;
             eyeGlow.Spawn();
 
-            while (PlayerHasPowerEnabled(player) && !Round.IsLobby)
+            while (PlayerHasPowerEnabled(player) && Round.IsRoundStarted)
             {
                 TrackToEye(head, eyeGlow.Transform, left, player.Scale);
                 yield return Timing.WaitForOneFrame;
@@ -212,7 +214,7 @@
         /// <inheritdoc/>
         protected override void EnablePower(Player player)
         {
-            if (player.Role.Base is not IFpcRole fpcrole)
+            if (player.RoleBase is not IFpcRole fpcrole)
             {
                 return;
             }

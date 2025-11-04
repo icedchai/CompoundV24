@@ -1,6 +1,7 @@
 ﻿namespace CompoundV24.API.Features.Powers
 {
     using LabApi.Events.Arguments.PlayerEvents;
+    using LabApi.Features.Console;
     using LabApi.Features.Wrappers;
     using System.Collections.Generic;
 
@@ -62,7 +63,7 @@
             SubscribeEvents();
             PowerManager.Registered.Add(this);
 
-            Log.Debug($"Registered power {GetType().Name}");
+            Logger.Debug($"Registered power {GetType().Name}");
         }
 
         /// <summary>
@@ -79,9 +80,9 @@
         /// </summary>
         protected virtual void SubscribeEvents()
         {
-            Exiled.Events.Handlers.Server.RestartingRound += DisposeVariablesOnRestart;
-            Exiled.Events.Handlers.Player.Hurting += OnInternalHurting;
-            Exiled.Events.Handlers.Player.ChangingRole += OnInternalChangingRole;
+            LabApi.Events.Handlers.ServerEvents.RoundRestarted += DisposeVariablesOnRestart;
+            LabApi.Events.Handlers.PlayerEvents.Hurting += OnInternalHurting;
+            LabApi.Events.Handlers.PlayerEvents.ChangingRole += OnInternalChangingRole;
         }
 
         /// <summary>
@@ -89,9 +90,9 @@
         /// </summary>
         protected virtual void UnsubscribeEvents()
         {
-            Exiled.Events.Handlers.Server.RestartingRound -= DisposeVariablesOnRestart;
-            Exiled.Events.Handlers.Player.Hurting -= OnInternalHurting;
-            Exiled.Events.Handlers.Player.ChangingRole -= OnInternalChangingRole;
+            LabApi.Events.Handlers.ServerEvents.RoundRestarted -= DisposeVariablesOnRestart;
+            LabApi.Events.Handlers.PlayerEvents.Hurting -= OnInternalHurting;
+            LabApi.Events.Handlers.PlayerEvents.ChangingRole -= OnInternalChangingRole;
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿namespace CompoundV24.API.Features.Powers.Interfaces
 {
-    using Exiled.API.Features;
+    using LabApi.Features.Wrappers;
 
     /// <summary>
     /// Interface for power that has an ability.

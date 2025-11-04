@@ -5,10 +5,9 @@
     using CompoundV24.API.Features.Powers.Superpowers;
     using CompoundV24.Items;
     using CompoundV24.Powers.Superpowers;
-    using Exiled.API.Interfaces;
 
 #pragma warning disable SA1600
-    public class Config : IConfig
+    public class Config
     {
         public bool IsEnabled { get; set; } = true;
 

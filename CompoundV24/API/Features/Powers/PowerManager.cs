@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using CompoundV24.API.Features.Powers.Interfaces;
-    using Exiled.API.Features;
+    using LabApi.Features.Wrappers;
 
     /// <summary>
     /// Manages the super powers and who has them.

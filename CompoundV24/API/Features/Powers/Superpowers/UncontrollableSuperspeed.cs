@@ -2,8 +2,7 @@
 {
     using CompoundV24.API.Features.Powers.Superpowers;
     using CustomPlayerEffects;
-    using Exiled.API.Enums;
-    using Exiled.API.Features;
+    using LabApi.Features.Wrappers;
     using MEC;
 
     /// <summary>
@@ -52,12 +51,12 @@
                     TogglePower(player);
                     if (UnityEngine.Random.Range(0f, 100f) < ChanceOfHeartAttackAfterRunning)
                     {
-                        player.EnableEffect(EffectType.CardiacArrest, HeartAttackLength);
+                        player.EnableEffect<CardiacArrest>(1, HeartAttackLength);
                         Timing.CallDelayed(HeartAttackLength, () =>
                         {
                             if (Check(player))
                             {
-                                player.DisableEffect(EffectType.CardiacArrest);
+                                player.DisableEffect<CardiacArrest>();
                             }
                         });
                     }

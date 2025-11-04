@@ -4,80 +4,52 @@
     using System.Linq;
     using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.API.Features.Powers;
+    using CustomItemsAPI.Items;
+    using CustomPlayerEffects;
     using LabApi.Events.Arguments.PlayerEvents;
+    using LabApi.Features.Wrappers;
     using MEC;
 
     /// <summary>
     /// The V24/TempV CustomItem.
     /// </summary>
-    [CustomItem(ItemType.SCP1853)]
-    public class CompoundV : CustomItem
+    public class CompoundV : CustomUsableBase
     {
         /// <inheritdoc/>
-        public override uint Id { get; set; } = 1205;
+        public override string CustomItemName { get; } = "CompoundV";
 
         /// <inheritdoc/>
-        public override string Name { get; set; } = "Compound V24";
+        public override ItemType Type { get; } = ItemType.SCP1853;
 
         /// <inheritdoc/>
-        public override string Description { get; set; } = string.Empty;
+        public override string Description { get; } = "Use to gain a random superpower.";
 
         /// <inheritdoc/>
-        public override ItemType Type { get; set; } = ItemType.SCP1853;
-
-        /// <inheritdoc/>
-        public override float Weight { get; set; } = 0.5f;
-
-        /// <inheritdoc/>
-        public override SpawnProperties SpawnProperties { get; set; }
-
-        /// <inheritdoc/>
-        public override bool ShouldMessageOnGban => true;
-
-        /// <inheritdoc/>
-        protected override void SubscribeEvents()
+        public override void OnUsed(Player player, UsableItem usableItem)
         {
-            base.SubscribeEvents();
-            Exiled.Events.Handlers.Player.UsedItem += OnUsed;
-        }
+            player.DisableEffect<Scp1853>();
 
-        /// <inheritdoc/>
-        protected override void UnsubscribeEvents()
-        {
-            base.UnsubscribeEvents();
-            Exiled.Events.Handlers.Player.UsedItem -= OnUsed;
-        }
-
-        private void OnUsed(PlayerUsedItemEventArgs e)
-        {
-            if (!Check(e.Item))
-            {
-                return;
-            }
-
-            e.Player.GetEffect(EffectType.Scp1853).Intensity = 0;
-
-            e.Player.EnableEffect(EffectType.CardiacArrest, 5f);
+            player.EnableEffect<CardiacArrest>(1, 5);
             Timing.CallDelayed(5f, () =>
             {
-                if (e.Player is null || e.Player.IsDead)
+                if (player is null || !player.IsAlive)
                 {
                     return;
                 }
 
-                e.Player.Heal(e.Player.MaxHealth);
+                player.Heal(player.MaxHealth);
 
-                List<Superpower> availablePowers = PowerManager.Instance.CompoundVPowers.Where(p => !p.Check(e.Player)).ToList();
+                List<Superpower> availablePowers = PowerManager.Instance.CompoundVPowers.Where(p => !p.Check(player)).ToList();
                 if (availablePowers.IsEmpty())
                 {
                     return;
                 }
 
                 Superpower powerToGive = availablePowers.RandomItem();
-                powerToGive.Grant(e.Player);
-                e.Player.ShowHint(string.Format("You have gotten {0}\n{1}", powerToGive.Name, powerToGive.Description));
+                powerToGive.Grant(player);
+                player.SendHint(string.Format("You have gotten {0}\n{1}", powerToGive.Name, powerToGive.Description));
 
-                if (PowerManager.Instance.PlayersToPowers[e.Player].Count > 1)
+                if (PowerManager.Instance.PlayersToPowers[player].Count > 1)
                 {
                     SoundHelper.PlaySound("hallway");
                 }

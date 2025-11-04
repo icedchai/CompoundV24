@@ -1,9 +1,9 @@
 ﻿namespace CompoundV24.API.Features.Powers.Superpowers
 {
     using System.Collections.Generic;
-    using Exiled.API.Enums;
-    using Exiled.API.Features;
-    using Exiled.Events.EventArgs.Player;
+    using CustomPlayerEffects;
+    using LabApi.Events.Arguments.PlayerEvents;
+    using LabApi.Features.Wrappers;
     using UnityEngine;
 
     /// <summary>
@@ -31,7 +31,7 @@
         }
 
         /// <inheritdoc/>
-        protected override void OnChangingRole(ChangingRoleEventArgs e)
+        protected override void OnChangingRole(PlayerChangingRoleEventArgs e)
         {
             base.OnChangingRole(e);
             SavedSpeeds.Remove(e.Player);
@@ -42,7 +42,7 @@
         {
             base.ApplyProperties(player);
             GameObject objct = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            objct.transform.parent = player.Transform;
+            objct.transform.parent = player.GameObject.transform;
             objct.transform.localPosition = Vector3.zero;
             RobinKillComponent robinkill = objct.AddComponent<RobinKillComponent>();
             robinkill.SuperspeedInstance = this;
@@ -65,23 +65,23 @@
             base.EnablePower(player);
             if (!SavedSpeeds.TryGetValue(player, out byte _))
             {
-                SavedSpeeds.Add(player, player.GetEffect(EffectType.MovementBoost)?.Intensity ?? 0);
+                SavedSpeeds.Add(player, player.GetEffect<MovementBoost>()?.Intensity ?? 0);
             }
             else
             {
-                SavedSpeeds[player] = player.GetEffect(EffectType.MovementBoost)?.Intensity ?? 0;
+                SavedSpeeds[player] = player.GetEffect<MovementBoost>()?.Intensity ?? 0;
             }
 
-            player.EnableEffect(EffectType.Invigorated);
-            player.GetEffect(EffectType.MovementBoost).Intensity = MovementSpeedIntensity;
+            player.EnableEffect<Invigorated>();
+            player.GetEffect<MovementBoost>().Intensity = MovementSpeedIntensity;
         }
 
         /// <inheritdoc/>
         protected override void DisablePower(Player player)
         {
             base.DisablePower(player);
-            player.GetEffect(EffectType.MovementBoost).Intensity = SavedSpeeds[player];
-            player.DisableEffect(EffectType.Invigorated);
+            player.GetEffect<MovementBoost>().Intensity = SavedSpeeds[player];
+            player.DisableEffect<Invigorated>();
         }
     }
 }

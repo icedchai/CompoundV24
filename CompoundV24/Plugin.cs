@@ -7,6 +7,7 @@
     using ColdWaterLibrary.Audio.Features.Helpers;
     using CompoundV24.API.Features.Powers;
     using CompoundV24.EventHandlers;
+    using CustomItemsAPI;
     using LabApi.Features;
     using LabApi.Loader.Features.Plugins;
     using UserSettings.ServerSpecific;
@@ -61,6 +62,8 @@
             eventHandlers = new ();
             eventHandlers.SubscribeEvents();
 
+            CustomItems.RegisterCustomItems();
+
             // SSGroupHeader ssHeader = new SSGroupHeader(Config.SettingHeaderLabel);
 
             ServerSpecificSettingBase[] settings = new ServerSpecificSettingBase[]
@@ -88,6 +91,8 @@
             Singleton = null;
 
             eventHandlers.UnsubscribeEvents();
+
+            CustomItems.UnRegisterAllCustomItems();
 
             PowerManager.Instance.UnregisterAll();
 

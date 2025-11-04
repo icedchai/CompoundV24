@@ -6,7 +6,7 @@
     using CommandSystem;
     using CompoundV24.API.Features.Powers;
     using CompoundV24.API.Features.Powers.Interfaces;
-    using Exiled.API.Features;
+    using LabApi.Features.Wrappers;
 
     /// <summary>
     /// The command to grant and test powers.

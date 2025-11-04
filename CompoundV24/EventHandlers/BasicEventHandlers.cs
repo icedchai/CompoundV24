@@ -4,9 +4,7 @@
     using System.Linq;
     using CompoundV24.API.Features.Powers;
     using CompoundV24.API.Features.Powers.Interfaces;
-    using Exiled.API.Features;
-    using Exiled.API.Features.Core.UserSettings;
-    using Exiled.Events.EventArgs.Player;
+    using LabApi.Features.Wrappers;
     using UserSettings.ServerSpecific;
 
     /// <summary>
@@ -19,7 +17,7 @@
         /// </summary>
         public void SubscribeEvents()
         {
-            Exiled.Events.Handlers.Server.RestartingRound += ResetPowermanager;
+            LabApi.Events.Handlers.ServerEvents.RoundRestarted += ResetPowermanager;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += OnSettingValueReceived;
         }
 
@@ -28,7 +26,7 @@
         /// </summary>
         public void UnsubscribeEvents()
         {
-            Exiled.Events.Handlers.Server.RestartingRound -= ResetPowermanager;
+            LabApi.Events.Handlers.ServerEvents.RoundRestarted -= ResetPowermanager;
             ServerSpecificSettingsSync.ServerOnSettingValueReceived -= OnSettingValueReceived;
         }
 
@@ -51,7 +49,8 @@
 
         private void OnSettingValueReceived(ReferenceHub hub, ServerSpecificSettingBase settingBase)
         {
-            if (!Player.TryGet(hub, out Player player))
+            Player player = Player.Get(hub);
+            if (player == null || hub == null)
             {
                 return;
             }
