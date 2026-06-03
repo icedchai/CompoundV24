@@ -44,23 +44,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\dependancies\plugins\AudioPlayerApi.dll</HintPath>
     </Reference>
-    <Reference Include="ColdWaterLibrary">
-      <HintPath>..\..\ColdWaterLibrary\ColdWaterLibrary\bin\Debug\ColdWaterLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExMod.Exiled.9.6.1\lib\net48\CommandSystem.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\dependancies\Dev\CommandSystem.Core.dll</HintPath>
     </Reference>
     <Reference Include="CustomItemsAPI">
       <HintPath>..\..\..\dependancies\plugins\CustomItemsAPI.dll</HintPath>
     </Reference>
-    <Reference Include="LabApi, Version=1.1.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\ExMod.Exiled.9.6.1\lib\net48\LabApi.dll</HintPath>
+    <Reference Include="LabApi, Version=1.1.7.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\Northwood.LabAPI.1.1.7\lib\net48\LabApi.dll</HintPath>
     </Reference>
     <Reference Include="Mirror">
       <HintPath>..\..\..\dependancies\EXILEDREF\Mirror.dll</HintPath>
-    </Reference>
-    <Reference Include="NorthwoodLib, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExMod.Exiled.9.6.1\lib\net48\NorthwoodLib.dll</HintPath>
     </Reference>
     <Reference Include="Pooling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
@@ -81,13 +76,16 @@
       <HintPath>..\..\..\dependancies\EXILEDREF\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExMod.Exiled.9.6.1\lib\net48\YamlDotNet.dll</HintPath>
+      <HintPath>..\packages\YamlDotNet.11.0.1\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Features\Powers\Superpowers\DangerTeleport.cs" />
+    <Compile Include="API\Features\SoundHelper.cs" />
     <Compile Include="Commands\PowerCommand.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers\BasicEventHandlers.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Items\CompoundV.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="API\Features\Powers\Superpower.cs" />
@@ -96,7 +94,7 @@
     <Compile Include="API\Features\Powers\PowerManager.cs" />
     <Compile Include="API\Features\Powers\Interfaces\IAbilityPower.cs" />
     <Compile Include="API\Features\Powers\Superpowers\LaserVision.cs" />
-    <Compile Include="API\Features\Powers\Superpowers\RobinKillComponent.cs" />
+    <Compile Include="API\Features\Powers\RobinKillComponent.cs" />
     <Compile Include="API\Features\Powers\Superpowers\UncontrollableSuperspeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
