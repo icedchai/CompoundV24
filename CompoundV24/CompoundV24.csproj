@@ -86,6 +86,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers\BasicEventHandlers.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Items\AntiSupeGun.cs" />
     <Compile Include="Items\CompoundV.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="API\Features\Powers\Superpower.cs" />

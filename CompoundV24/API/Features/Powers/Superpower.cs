@@ -12,7 +12,7 @@ namespace CompoundV24.API.Features.Powers;
 public abstract class Superpower
 {
     /// <summary>
-    /// Gets the name of this power.
+    /// Gets or sets the name of this power.
     /// </summary>
     public abstract string Name { get; set; }
 

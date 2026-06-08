@@ -29,6 +29,11 @@ public class ControllableSuperspeed : ToggleablePower
     /// </summary>
     public byte MovementSpeedIntensity { get; set; } = 255;
 
+    /// <summary>
+    /// Gets or sets the amount of damage that a player with this power will take upon running into another player.
+    /// </summary>
+    public float SelfDamageOnCollideWithOtherPlayers { get; set; } = 15f;
+
     /// <inheritdoc/>
     protected override void DisposeVariablesOnRestart()
     {

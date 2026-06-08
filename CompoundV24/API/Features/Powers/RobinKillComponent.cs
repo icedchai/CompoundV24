@@ -58,6 +58,9 @@ public class RobinKillComponent : MonoBehaviour
                 .SetValue(h, Player.Velocity * 20);*/
             victim.Damage(h);
 
+            h = new JailbirdDamageHandler(Player.ReferenceHub, SuperspeedInstance.SelfDamageOnCollideWithOtherPlayers, Vector3.zero);
+            Player.Damage(h);
+
             // victim.ReferenceHub.playerStats.DealDamage(h);
         });
     }

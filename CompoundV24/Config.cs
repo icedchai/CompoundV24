@@ -12,8 +12,13 @@ public class Config
 
     public bool Debug { get; set; } = false;
 
+    [Description("The message to display to someone when using an ability that is on cooldown.")]
+    public string CooldownMessage { get; set; } = "This ability is on cooldown. Seconds remaining: {0}";
+
     [Description("The Compound V24 CustomItem")]
     public CompoundV CompoundVItem { get; set; } = new ();
+
+    public AntiSupeGun AntiSupeGun { get; set; } = new AntiSupeGun();
 
     [Description("The centered text (header) of the category.")]
     public string SettingHeaderLabel { get; set; } = "Compound V";

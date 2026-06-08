@@ -2,6 +2,7 @@
 using CompoundV24.API.Features.Powers.Interfaces;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
+using PlayerRoles.Subroutines;
 
 namespace CompoundV24.API.Features.Powers.Superpowers;
 
@@ -10,10 +11,18 @@ namespace CompoundV24.API.Features.Powers.Superpowers;
 /// </summary>
 public abstract class ToggleablePower : Superpower, IAbilityPower
 {
+    /// <inheritdoc/>
+    public float Cooldown { get; set; } = 2.5f;
+
+    /// <summary>
+    /// Gets the <see cref="AbilityCooldown"/>s for this power.
+    /// </summary>
+    public Dictionary<Player, AbilityCooldown> AbilityCooldown { get; private set; } = new Dictionary<Player, AbilityCooldown>();
+
     /// <summary>
     /// Gets or sets the lookup table between <see cref="Player"/>'s and a value indicating whether they have the power enabled.
     /// </summary>
-    protected List<Player> EnabledPlayers { get; set; } = new();
+    protected List<Player> EnabledPlayers { get; set; } = new ();
 
     /// <summary>
     /// Checks whether the player has the power enabled.
@@ -28,14 +37,29 @@ public abstract class ToggleablePower : Superpower, IAbilityPower
     /// <inheritdoc/>
     public virtual void OnUsedAbility(Player player)
     {
-        TogglePower(player);
+        if (!AbilityCooldown.TryGetValue(player, out AbilityCooldown cooldown))
+        {
+            cooldown = new AbilityCooldown();
+            AbilityCooldown.Add(player, cooldown);
+        }
+
+        if (cooldown.IsReady)
+        {
+            cooldown.Trigger(Cooldown);
+            TogglePower(player);
+        }
+        else
+        {
+            player.SendHint(string.Format(Plugin.Config.CooldownMessage, cooldown.Remaining));
+        }
     }
 
     /// <inheritdoc/>
     protected override void DisposeVariablesOnRestart()
     {
         base.DisposeVariablesOnRestart();
-        EnabledPlayers = new ();
+        EnabledPlayers.Clear();
+        AbilityCooldown.Clear();
     }
 
     /// <inheritdoc/>

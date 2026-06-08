@@ -42,12 +42,12 @@ public class PowerManager
     internal IReadOnlyCollection<Superpower> CompoundVPowers => Registered.Where(p => p.IsCompoundV).ToList();
 
     /// <summary>
-    /// Gets an <see cref="IReadOnlyCollection{Superpower}"/> of <see cref="Superpower"/>'s.
+    /// Gets an <see cref="IReadOnlyCollection{Superpower}"/> of <see cref="Superpower"/>s that are registered.
     /// </summary>
     public IReadOnlyCollection<Superpower> Instances => Registered;
 
     /// <summary>
-    /// Gets or sets the lookup table between <see cref="ReferenceHub"/>'s and <see cref="ActiveSuperpower"/>'s.
+    /// Gets or sets the lookup table between <see cref="ReferenceHub"/>'s and <see cref="Superpower"/>s.
     /// </summary>
     internal Dictionary<Player, List<Superpower>> PlayersToPowers { get; set; } = new ();
 
